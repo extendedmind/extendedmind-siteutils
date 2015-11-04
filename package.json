@@ -1,0 +1,25 @@
+{
+  "name": "extendedmind-siteutils",
+  "version": "1.0.0",
+  "description": "Extended Mind Site Utils",
+  "main": "index.js",
+  "dependencies": {
+    "etag": "^1.7.0",
+    "fs-promise": "^0.3.1",
+    "methods": "~1.1.0",
+    "nunjucks": "^2.1.0",
+    "path": "^0.11.14",
+    "path-to-regexp": "^1.2.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:extendedmind/extendedmind-siteutils.git"
+  },
+  "author": "Timo Tiuraniemi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/extendedmind/extendedmind-siteutils/issues"
+  },
+  "homepage": "https://github.com/extendedmind/extendedmind-siteutils"
+}
