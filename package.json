@@ -1,6 +1,6 @@
 {
   "name": "extendedmind-siteutils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Extended Mind Site Utils",
   "main": "index.js",
   "dependencies": {
