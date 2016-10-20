@@ -1,9 +1,14 @@
-'use strict';
+export class ExtendedMindPublicItems {
 
-class ExtendedMindPublicItems {
+  private owner: string;
+  private format: string;
+  private content: any;
+  private synced: number;
+  private modified?: number;
+  private notes?: any;
+  private tags?: any;
 
   // Constructor
-
   constructor(itemsResponse){
     this.owner = itemsResponse.owner;
     this.format = itemsResponse.format;
@@ -228,4 +233,3 @@ class ExtendedMindPublicItems {
   }
 
 }
-module.exports = ExtendedMindPublicItems;

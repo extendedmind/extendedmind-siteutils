@@ -1,0 +1,10 @@
+{
+  "globalDependencies": {
+    "lru-cache": "registry:dt/lru-cache#4.0.1+20160812224217",
+    "node": "registry:dt/node#6.0.0+20161014191813",
+    "superagent": "registry:dt/superagent#2.0.0+20160906143408"
+  },
+  "dependencies": {
+    "superagent-promise": "github:extendedmind/typings/superagent-promise#ae1747d8e81115d54069db11bcb94fe7137baa20"
+  }
+}

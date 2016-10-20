@@ -1,15 +1,22 @@
-'use strict';
+import * as superagent from 'superagent';
+import superagentPromise = require('superagent-promise')
+const request = superagentPromise(superagent, Promise);
 
-const request = require('superagent-promise')(require('superagent'), Promise);
+import * as lruCache from 'lru-cache';
 
 const defaultSettings = {
   syncTimeTreshold: 60000, // default to syncing once per minute
   maxCachedHandles: 100  // default to keeping a maximum of 100 handles in-memory at a time
 };
 
-const ExtendedMindPublicItems = require('./extendedmind-data.js')
+import {ExtendedMindPublicItems} from './extendedmind-data';
 
-module.exports = (apiUrl, settings) => {
+export interface ExtendedMindUtilsAPI{
+  getPublicItems(handle: string): Promise<any>;
+  getPreviewItem(ownerUUID: string, itemUUID: string, previewCode: string): Promise<any>;
+}
+
+export function initializeExtendedMindUtils(apiUrl: string, settings?: any): ExtendedMindUtilsAPI {
 
   let backendApi = apiUrl;
   let config = settings ? settings : {};
@@ -26,7 +33,7 @@ module.exports = (apiUrl, settings) => {
 
   async function fetchPublicItems(handle){
     let publicOwnerUrl = backendApi + '/public/' + handle;
-    let backendResponse = await request.get(publicOwnerUrl);
+    let backendResponse = await request.get(publicOwnerUrl).end();
     if (backendResponse.status === 200){
       return new ExtendedMindPublicItems(backendResponse.body);
     }
@@ -36,7 +43,7 @@ module.exports = (apiUrl, settings) => {
     if (Date.now() - cachedItems.getLastSynced() > config.syncTimeTreshold){
       let publicOwnerModifiedUrl = backendApi + '/public/' + handle +
                                   '?modified=' + cachedItems.getLatestModified();
-      let backendResponse = await request.get(publicOwnerModifiedUrl);
+      let backendResponse = await request.get(publicOwnerModifiedUrl).end();
       if (backendResponse.status === 200){
         cachedItems.updateItems(backendResponse.body);
       }
@@ -49,7 +56,7 @@ module.exports = (apiUrl, settings) => {
     let todayMidnight = new Date().setUTCHours(0,0,1,0);
     if (!lastReset || lastReset < todayMidnight){
       lastReset = Date.now();
-      handleCache = require("lru-cache")(
+      handleCache = lruCache(
         { max: config.maxCachedHandles}
       );
     }
@@ -62,7 +69,7 @@ module.exports = (apiUrl, settings) => {
 
   async function getPreviewItem(ownerUUID, itemUUID, previewCode) {
     let backendResponse = await request.get(backendApi + '/' + ownerUUID + '/item/' +
-                                              itemUUID + '/preview/' + previewCode);
+                                              itemUUID + '/preview/' + previewCode).end();
     if (backendResponse.status === 200){
       return backendResponse.body;
     }
