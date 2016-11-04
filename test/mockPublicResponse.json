@@ -1,0 +1,73 @@
+{
+  "users": [{
+    "handle": "timo",
+    "displayName": "Timo",
+    "notes": [{
+      "path": "productivity",
+      "commonTags": ["f96e6c8b-f5c7-4a70-9521-1367ffd60acf"],
+      "uuid": "01feb99a-cc42-4486-829f-a86fb908c27f",
+      "published": 1478194087732,
+      "indexed": 1478194087732,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194087732,
+      "title": "notes on productivity"
+    }, {
+      "path": "timo-test-note",
+      "uuid": "71bf88c5-9dad-44f0-b3bb-4bc5dfc270c0",
+      "published": 1478194087915,
+      "indexed": 1478194087915,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194087915,
+      "title": "Public note by Timo"
+    }]
+  }, {
+    "handle": "lauri",
+    "displayName": "lauri@extendedmind.org",
+    "notes": [{
+      "path": "lauri-test-note",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "0e647a3a-821d-452b-9f61-8bebae339b3f",
+      "published": 1478194088061,
+      "indexed": 1478194088061,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088061,
+      "title": "Public note by Lauri"
+    }]
+  }],
+  "collectives": [{
+    "handle": "tc",
+    "displayName": "Test Company",
+    "notes": [{
+      "path": "list-of-servers",
+      "commonTags": ["14454e3d-80f1-4fc7-a22a-6856810f06e3"],
+      "uuid": "f454c8af-402b-4028-9ebf-91ad7b413711",
+      "published": 1478194087544,
+      "indexed": 1478194087544,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194087544,
+      "title": "list of servers"
+    }]
+  }],
+  "commonTags": [{
+    "uuid": "14454e3d-80f1-4fc7-a22a-6856810f06e3",
+    "modified": 1478194087491,
+    "title": "technology",
+    "tagType": "keyword"
+  }, {
+    "parent": "cbf4be1f-ac52-4f77-baf7-06e85b72cffe",
+    "uuid": "f96e6c8b-f5c7-4a70-9521-1367ffd60acf",
+    "modified": 1478194087484,
+    "title": "productivity",
+    "tagType": "keyword"
+  }, {
+    "uuid": "cbf4be1f-ac52-4f77-baf7-06e85b72cffe",
+    "modified": 1478194087475,
+    "title": "work",
+    "tagType": "keyword"
+  }, {
+    "uuid": "21f4be1f-ac52-4f77-baf7-06e85b72cf11",
+    "modified": 1478194082465,
+    "title": "opinion",
+    "tagType": "keyword"
+  }]
+}

@@ -1,0 +1,58 @@
+{
+  "tags": [{
+    "uuid": "83be955f-963a-4a37-840a-f0f3fd80a5c7",
+    "modified": 1478194086784,
+    "title": "blog",
+    "tagType": "keyword"
+  }],
+  "modified": 1478194086486,
+  "collectiveTags": [["11111111-1111-1111-1111-111111111111", [{
+    "parent": "127e1a5c-fc0b-4f91-ac51-6e1cb2eb1254",
+    "uuid": "8ae467ea-51a5-4c57-868f-aaf744b9ca5d",
+    "modified": 1478194086690,
+    "title": "productivity",
+    "tagType": "keyword"
+  }, {
+    "uuid": "127e1a5c-fc0b-4f91-ac51-6e1cb2eb1254",
+    "modified": 1478194086680,
+    "title": "work",
+    "tagType": "keyword"
+  }]]],
+  "notes": [{
+    "format": "md",
+    "uuid": "c876628e-1d67-411a-84f9-5dfedbed8872",
+    "modified": 1478194086943,
+    "relationships": {
+      "tags": ["83be955f-963a-4a37-840a-f0f3fd80a5c7"],
+      "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["8ae467ea-51a5-4c57-868f-aaf744b9ca5d"]]]
+    },
+    "content": "# what I've learned about productivity \n## focus \nto get things done, you need to have uninterrupted time \n## rhythm \nwork in high intensity sprints of 90 minutes, then break for 15 minutes \n## rest \nwithout ample rest and sleep, your productivity will decline rapidly \n## tools \nuse the best possible tools for your work \n## process \nincreasing your productivity doesn't happen overnight",
+    "title": "notes on productivity",
+    "visibility": {
+      "path": "productivity",
+      "published": 1478194086943,
+      "indexed": 1478194086943,
+      "licence": "CC BY-SA 4.0",
+      "shortId": "421",
+      "publishedRevision": 1
+    },
+    "created": 1478194086930
+  }, {
+    "uuid": "ed13bdbc-7faf-4d7d-8fcc-c8ff6de007fa",
+    "modified": 1478194087126,
+    "relationships": {
+      "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["127e1a5c-fc0b-4f91-ac51-6e1cb2eb1254"]]]
+    },
+    "content": "this is public",
+    "title": "Public note",
+    "visibility": {
+      "path": "test",
+      "published": 1478194087126,
+      "licence": "CC BY-SA 4.0",
+      "shortId": "521",
+      "publishedRevision": 1
+    },
+    "created": 1478194087111
+  }],
+  "owner": "Timo"
+}

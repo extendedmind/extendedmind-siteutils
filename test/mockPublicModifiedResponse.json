@@ -1,0 +1,28 @@
+{
+  "users": [{
+    "handle": "timo",
+    "displayName": "Timo",
+    "notes": [{
+      "path": "productivity",
+      "commonTags": ["a96e6c8b-f5c7-4a70-9521-1367ffd60ac1"],
+      "uuid": "01feb99a-cc42-4486-829f-a86fb908c27f",
+      "published": 1478194087732,
+      "indexed": 1478194087732,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194090000,
+      "title": "updated notes on productivity"
+    }]
+  },
+  {
+    "handle": "lauri",
+    "displayName": "lauri@extendedmind.org",
+    "unpublished": ["0e647a3a-821d-452b-9f61-8bebae339b3f"]
+  }],
+  "commonTags": [
+   {
+    "uuid": "a96e6c8b-f5c7-4a70-9521-1367ffd60ac1",
+    "modified": 1478194057484,
+    "title": "life",
+    "tagType": "keyword"
+  }]
+}
