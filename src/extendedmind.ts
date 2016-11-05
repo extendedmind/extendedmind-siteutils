@@ -63,7 +63,7 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
   let lastHeadersReset: number;
 
   async function fetchPublicItems(handle) {
-    let publicOwnerUrl = backendApi + "/public/" + handle;
+    let publicOwnerUrl = backendApi + "/v2/public/" + handle;
     let backendResponse = await request.get(publicOwnerUrl).end();
     if (backendResponse.status === 200) {
       return new ExtendedMindPublicItems(backendResponse.body);
@@ -72,7 +72,7 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
 
   async function refreshPublicItems(handle, cachedItems) {
     if (Date.now() - cachedItems.getLastSynced() > config.syncTimeTreshold) {
-      let publicOwnerModifiedUrl = backendApi + "/public/" + handle +
+      let publicOwnerModifiedUrl = backendApi + "/v2/public/" + handle +
                                   "?modified=" + cachedItems.getLatestModified();
       let backendResponse = await request.get(publicOwnerModifiedUrl).end();
       if (backendResponse.status === 200) {
@@ -83,7 +83,7 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
   }
 
   async function fetchHeaders(): Promise<ExtendedMindHeaders> {
-    let publicUrl = backendApi + "/public";
+    let publicUrl = backendApi + "/v2/public";
     let backendResponse = await request.get(publicUrl).end();
     if (backendResponse.status === 200) {
       return new ExtendedMindHeaders(backendResponse.body);
@@ -92,7 +92,7 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
 
   async function refreshHeaders(cachedHeaders: ExtendedMindHeaders): Promise<ExtendedMindHeaders> {
     if (Date.now() - cachedHeaders.getLastSynced() > config.syncTimeTreshold) {
-      let publicOwnerModifiedUrl = backendApi + "/public" +
+      let publicOwnerModifiedUrl = backendApi + "/v2/public" +
                                   "?modified=" + cachedHeaders.getLatestModified();
       let backendResponse = await request.get(publicOwnerModifiedUrl).end();
       if (backendResponse.status === 200) {
@@ -132,7 +132,7 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
   }
 
   async function getPreviewItem(ownerUUID, itemUUID, previewCode) {
-    let backendResponse = await request.get(backendApi + "/" + ownerUUID + "/item/" +
+    let backendResponse = await request.get(backendApi + "/v2/owners/" + ownerUUID + "/data/items/" +
                                               itemUUID + "/preview/" + previewCode).end();
     if (backendResponse.status === 200) {
       return backendResponse.body;

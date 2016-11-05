@@ -7,7 +7,7 @@ server.get('/', function(req, res){
 
 const mockPublicResponse = require('./test/mockPublicResponse.json');
 const mockPublicModifiedResponse = require('./test/mockPublicModifiedResponse.json');
-server.get('/public', function(req, res){
+server.get('/v2/public', function(req, res){
   if (req.query.modified){
     res.send(mockPublicModifiedResponse)
   }else{
@@ -17,7 +17,7 @@ server.get('/public', function(req, res){
 
 const mockPublicItemsResponse = require('./test/mockPublicItemsResponse.json');
 const mockPublicItemsModifiedResponse = require('./test/mockPublicItemsModifiedResponse.json');
-server.get('/public/timo', function(req, res){
+server.get('/v2/public/timo', function(req, res){
   if (req.query.modified){
     res.send(mockPublicItemsModifiedResponse);
   }else{
