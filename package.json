@@ -1,9 +1,9 @@
 {
   "name": "extendedmind-siteutils",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Extended Mind Site Utils",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "dependencies": {
     "@types/lru-cache": "^2.5.32",
     "@types/superagent": "^2.0.35",
@@ -26,7 +26,8 @@
     "wait-on": "^1.5.3"
   },
   "scripts": {
-    "start": "typings install && npm run build:watch",
+    "prepublish": "npm run clean && typings install && npm run build",
+    "clean": "rimraf dist && rimraf typings",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "test": "./test-runner.sh",

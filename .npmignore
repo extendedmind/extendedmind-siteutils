@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+.vscode
+*.log
+*.tgz
+src/
+test/**.ts
+tsconfig.json
+tslint.json
+typings.json
+typings
+dist/test
