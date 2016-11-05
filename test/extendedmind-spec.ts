@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { ExtendedMindHeaders, ExtendedMindPublicItems,
+import { ExtendedMindHeaders, ExtendedMindPublicItems, ExtendedMindInfo,
          ExtendedMindUtilsAPI, initializeExtendedMindUtils } from "../src/index";
 
 describe("extendedmind-siteutils", () => {
@@ -8,6 +8,22 @@ describe("extendedmind-siteutils", () => {
 
   beforeEach(function() {
     emUtilsAPI = initializeExtendedMindUtils("http://localhost:3004", {syncTimeTreshold: 0});
+  });
+
+  it("should return info", async function() {
+    const info: ExtendedMindInfo = await emUtilsAPI.getInfo();
+    expect(info.version).to.not.be.undefined;
+    expect(info.build).to.not.be.undefined;
+    expect(info.commonCollective[1]).to.equal("test data");
+    expect(info.clients).to.be.undefined;
+
+    const latestInfo: ExtendedMindInfo = await emUtilsAPI.getInfo(true);
+    expect(latestInfo.clients.length).to.equal(2);
+    expect(latestInfo.clients.filter(client => client.platform === "darwin").length).to.equal(1);
+
+    const latestHistoryInfo: ExtendedMindInfo = await emUtilsAPI.getInfo(true, true);
+    expect(latestHistoryInfo.clients.length).to.equal(3);
+    expect(latestHistoryInfo.clients.filter(client => client.platform === "darwin").length).to.equal(2);
   });
 
   it("should return public headers and update them accordingly", async function() {

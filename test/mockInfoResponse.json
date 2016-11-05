@@ -1,0 +1,7 @@
+{
+  "build": "0",
+  "commonCollective": ["11111111-1111-1111-1111-111111111111", "test data"],
+  "version": "0-SNAPSHOT",
+  "ui": "{\"powered\": true, \"help\": false}",
+  "created": 1478194110863
+}

@@ -12,10 +12,35 @@ const defaultSettings = {
 import {ExtendedMindPublicItems, ExtendedMindHeaders} from "./extendedmind-data";
 
 export interface ExtendedMindUtilsAPI {
-  getInfo(): Promise<any>;
+  getInfo(latest?: boolean, history?: boolean): Promise<ExtendedMindInfo>
   getHeaders(): Promise<any>;
   getPreviewItem(ownerUUID: string, itemUUID: string, previewCode: string): Promise<any>;
   getPublicItems(handle: string): Promise<any>;
+}
+
+export interface ExtendedMindClientPlatformInfo {
+  url?: string;
+  name?: string;
+  notes?: string;
+  pub_date?: string;
+  version: string;
+  userType: number;
+  updateUrl?: string;
+  fullUrl?: string;
+}
+
+export interface ExtendedMindClientPlatform {
+  "platform": string;
+  info: ExtendedMindClientPlatformInfo;
+}
+
+export interface ExtendedMindInfo {
+  build: string;
+  commonCollective: [string, string];
+  version: string;
+  created: number;
+  ui?: string;
+  clients?: Array<ExtendedMindClientPlatform>;
 }
 
 export function initializeExtendedMindUtils(apiUrl: string, settings?: any): ExtendedMindUtilsAPI {
@@ -93,7 +118,7 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
     return items;
   }
 
-  async function getHeaders() {
+  async function getHeaders(): Promise<any> {
     // One minute after midnight, that gives the backend one minute to prune all unpublished
     // items and then modified works again
     let todayMidnight = new Date().setUTCHours(0, 0, 1, 0);
@@ -114,14 +139,26 @@ export function initializeExtendedMindUtils(apiUrl: string, settings?: any): Ext
     }
   }
 
+  async function getInfo(latest?: boolean, history?: boolean): Promise<ExtendedMindInfo> {
+    let url = backendApi + "/info";
+    if (latest === true) {
+      url += "?latest=true";
+      if (history === true) {
+        url += "&history=true";
+      }
+    }
+    let infoResponse = await request.get(url)
+        .set("Accept", "application/json")
+        .end();
+    return <ExtendedMindInfo> infoResponse.body;
+  }
+
   return {
     getHeaders: async function(): Promise<any> {
       return await getHeaders();
     },
-    getInfo: function(): Promise<any>{
-      return request.get(backendApi + "/info")
-          .set("Accept", "application/json")
-          .end();
+    getInfo: async function(latest?: boolean, history?: boolean): Promise<ExtendedMindInfo>{
+      return await getInfo(latest, history);
     },
     // Returns one preview item based on given information
     getPreviewItem: async function(ownerUUID, itemUUID, previewCode){

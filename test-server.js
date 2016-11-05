@@ -25,6 +25,19 @@ server.get('/public/timo', function(req, res){
   }
 });
 
+const mockInfoResponse = require('./test/mockInfoResponse.json');
+const mockInfoLatestResponse = require('./test/mockInfoLatestResponse.json');
+const mockInfoLatestHistoryResponse = require('./test/mockInfoLatestHistoryResponse.json');
+server.get('/info', function(req, res){
+  if (req.query.latest === "true" && req.query.history !== "true"){
+    res.send(mockInfoLatestResponse);
+  }else if (req.query.latest === "true" && req.query.history === "true"){
+    res.send(mockInfoLatestHistoryResponse);
+  }else {
+    res.send(mockInfoResponse);
+  }
+});
+
 server.listen(3004, function () {
   console.log('Minimal express server is running at port 3004')
 });
