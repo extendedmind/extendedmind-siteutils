@@ -1,6 +1,6 @@
 {
   "name": "extendedmind-siteutils",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Extended Mind Site Utils",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,12 +26,14 @@
     "wait-on": "^1.5.3"
   },
   "scripts": {
-    "postinstall": "typings install && npm run build",
+    "start": "typings install && npm run build:watch",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "test": "./test-runner.sh",
-    "test:watch": "nodemon -w dist -e js --exec \"npm test\" ",
-    "dev": "concurrently \"npm run build:watch\" \"npm run test:watch\" "
+    "test:mocha": "mocha ./dist/test/**.js",
+    "test:watch": "nodemon -w dist -e js --exec \"npm run test:mocha\" ",
+    "mock:server": "node test-server.js",
+    "dev": "concurrently \"npm run mock:server\" \"npm run build:watch\" \"npm run test:watch\" "
   },
   "repository": {
     "type": "git",
