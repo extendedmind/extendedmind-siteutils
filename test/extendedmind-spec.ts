@@ -1,5 +1,6 @@
-import { expect, should } from "chai";
-import { ExtendedMindHeaders, ExtendedMindPublicItems, ExtendedMindUtilsAPI, initializeExtendedMindUtils } from "../src/index";
+import { expect } from "chai";
+import { ExtendedMindHeaders, ExtendedMindPublicItems,
+         ExtendedMindUtilsAPI, initializeExtendedMindUtils } from "../src/index";
 
 describe("extendedmind-siteutils", () => {
 
