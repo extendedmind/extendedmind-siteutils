@@ -1,3 +1,3 @@
-export { ExtendedMindUtilsAPI, initializeExtendedMindUtils, ExtendedMindInfo,
-         ExtendedMindClientPlatform, ExtendedMindClientPlatformInfo} from "./extendedmind";
-export { ExtendedMindPublicItems, ExtendedMindHeaders } from "./extendedmind-data";
+export { Utils, Info,
+         ClientPlatform, ClientPlatformInfo} from "./extendedmind";
+export { PublicItems, PublicHeaders } from "./extendedmind-data";

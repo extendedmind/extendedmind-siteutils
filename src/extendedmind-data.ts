@@ -1,4 +1,4 @@
-export class ExtendedMindData {
+export class PublicBase {
   protected modified: number;
   protected synced: number;
   protected tags: Array<any>;
@@ -156,7 +156,7 @@ export class ExtendedMindData {
   }
 }
 
-export class ExtendedMindHeaders extends ExtendedMindData {
+export class PublicHeaders extends PublicBase {
   private owners: Array<any>;
 
   // Constructor
@@ -252,7 +252,7 @@ export class ExtendedMindHeaders extends ExtendedMindData {
   }
 }
 
-export class ExtendedMindPublicItems extends ExtendedMindData {
+export class PublicItems extends PublicBase {
 
   private owner: string;
   private format: string;
