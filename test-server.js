@@ -15,13 +15,23 @@ server.get('/v2/public', function(req, res){
   }
 });
 
-const mockPublicItemsResponse = require('./test/mockPublicItemsResponse.json');
-const mockPublicItemsModifiedResponse = require('./test/mockPublicItemsModifiedResponse.json');
+const mockTimoPublicItemsResponse = require('./test/mockTimoPublicItemsResponse.json');
+const mockTimoPublicItemsModifiedResponse = require('./test/mockTimoPublicItemsModifiedResponse.json');
 server.get('/v2/public/timo', function(req, res){
   if (req.query.modified){
-    res.send(mockPublicItemsModifiedResponse);
+    res.send(mockTimoPublicItemsModifiedResponse);
   }else{
-    res.send(mockPublicItemsResponse);
+    res.send(mockTimoPublicItemsResponse);
+  }
+});
+
+const mockLauriPublicItemsResponse = require('./test/mockLauriPublicItemsResponse.json');
+const mockLauriPublicItemsModifiedResponse = require('./test/mockLauriPublicItemsModifiedResponse.json');
+server.get('/v2/public/lauri', function(req, res){
+  if (req.query.modified){
+    res.send(mockLauriPublicItemsModifiedResponse);
+  }else{
+    res.send(mockLauriPublicItemsResponse);
   }
 });
 

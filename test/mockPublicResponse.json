@@ -25,13 +25,203 @@
     "displayName": "lauri@extendedmind.org",
     "notes": [{
       "path": "lauri-test-note",
-      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "commonTags": ["31f4be1f-ac52-4f77-baf7-06e85b72cf12"],
       "uuid": "0e647a3a-821d-452b-9f61-8bebae339b3f",
       "published": 1478194088061,
       "indexed": 1478194088061,
       "licence": "CC BY-SA 4.0",
       "modified": 1478194088061,
       "title": "Public note by Lauri"
+    },
+    {
+      "path": "lauri-test-note-2",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "95de0d4c-8adf-4148-8cee-5dc77da2b4b4",
+      "published": 1478194088062,
+      "indexed": 1478194088062,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088062,
+      "title": "Public note 2 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-3",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "636d10a8-9a64-4cb8-91c3-945af6fcb404",
+      "published": 1478194088063,
+      "indexed": 1478194088063,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088063,
+      "title": "Public note 3 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-4",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "00d1fdaa-31a0-4952-ad0d-4e659bbc2fc1",
+      "published": 1478194088064,
+      "indexed": 1478194088064,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088064,
+      "title": "Public note 4 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-5",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "3f84962a-12e9-4059-a460-430759a48295",
+      "published": 1478194088065,
+      "indexed": 1478194088065,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088065,
+      "title": "Public note 5 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-6",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "32c37727-2142-4d8a-acc3-ae66be135e6e",
+      "published": 1478194088066,
+      "indexed": 1478194088066,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088066,
+      "title": "Public note 6 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-7",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "b0d1d112-3c1e-4f5e-9f38-a4220a82472e",
+      "published": 1478194088067,
+      "indexed": 1478194088067,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088067,
+      "title": "Public note 7 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-8",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "be8ad31d-05c0-499a-bd3b-f62bfa702308",
+      "published": 1478194088068,
+      "indexed": 1478194088068,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088068,
+      "title": "Public note 8 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-9",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "139cdd72-0080-4ec0-b069-07701b5f1c89",
+      "published": 1478194088069,
+      "indexed": 1478194088069,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088069,
+      "title": "Public note 9 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-10",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "1d8fbd06-1647-4087-a1fc-61e4e415213e",
+      "published": 1478194088070,
+      "indexed": 1478194088070,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088070,
+      "title": "Public note 10 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-11",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "8d5a612b-6b91-468d-b6f2-94939a359bda",
+      "published": 1478194088071,
+      "indexed": 1478194088071,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088071,
+      "title": "Public note 11 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-12",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "72b9dbbf-0b42-46fb-be95-a32943ceb4ed",
+      "published": 1478194088072,
+      "indexed": 1478194088072,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088072,
+      "title": "Public note 12 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-13",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "f5022ea2-81a9-42eb-a90f-d6a7427ff1ba",
+      "published": 1478194088073,
+      "indexed": 1478194088073,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088073,
+      "title": "Public note 13 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-14",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "a6c3a20f-873b-4e2c-b6c9-d607457dbc71",
+      "published": 1478194088074,
+      "indexed": 1478194088074,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088074,
+      "title": "Public note 14 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-15",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "cd7bd5ba-3489-41d9-955f-e89494bd241a",
+      "published": 1478194088075,
+      "indexed": 1478194088075,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088075,
+      "title": "Public note 15 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-16",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "47c74d09-3b5a-4769-af59-2347a752665d",
+      "published": 1478194088076,
+      "indexed": 1478194088076,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088076,
+      "title": "Public note 16 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-17",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "02375b28-c967-4e89-8dd8-76edd1d84afc",
+      "published": 1478194088077,
+      "indexed": 1478194088077,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088077,
+      "title": "Public note 17 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-18",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "d0f5eb12-cd96-48f0-b64e-736cd854bd4a",
+      "published": 1478194088078,
+      "indexed": 1478194088078,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088078,
+      "title": "Public note 18 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-19",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "89dfbe01-5ca5-4b33-8290-c9a9dddab67d",
+      "published": 1478194088079,
+      "indexed": 1478194088079,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088079,
+      "title": "Public note 19 by Lauri"
+    },
+    {
+      "path": "lauri-test-note-20",
+      "commonTags": ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"],
+      "uuid": "8069bda4-e2ef-4f09-8db1-f737a32a0c05",
+      "published": 1478194088080,
+      "indexed": 1478194088080,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194088080,
+      "title": "Public note 20 by Lauri"
     }]
   }],
   "collectives": [{
@@ -65,9 +255,14 @@
     "title": "work",
     "tagType": "keyword"
   }, {
+    "uuid": "31f4be1f-ac52-4f77-baf7-06e85b72cf12",
+    "modified": 1478194082466,
+    "title": "opinion",
+    "tagType": "keyword"
+  }, {
     "uuid": "21f4be1f-ac52-4f77-baf7-06e85b72cf11",
     "modified": 1478194082465,
-    "title": "opinion",
+    "title": "test",
     "tagType": "keyword"
   }]
 }
