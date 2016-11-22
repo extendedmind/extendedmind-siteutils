@@ -391,5 +391,6 @@
     },
     "created": 1478194018080
   }],
-  "owner": "lauri@extendedmind.org"
+  "displayName": "lauri@extendedmind.org",
+  "ownerType": "user"
 }

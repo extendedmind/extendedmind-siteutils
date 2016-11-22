@@ -5,7 +5,6 @@
     "title": "blog",
     "tagType": "keyword"
   }],
-  "modified": 1478194086486,
   "collectiveTags": [["11111111-1111-1111-1111-111111111111", [{
     "uuid": "127e1a5c-fc0b-4f91-ac51-6e1cb2eb1254",
     "modified": 1478194086680,
@@ -31,6 +30,5 @@
       "publishedRevision": 2
     },
     "created": 1478194086930
-  }],
-  "owner": "Timo"
+  }]
 }

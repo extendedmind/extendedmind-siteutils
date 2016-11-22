@@ -196,14 +196,20 @@ export class PublicHeaders extends PublicBase {
       handle: owner.handle,
       displayName: owner.displayName,
       ownerType: ownerType,
+      blacklisted: owner.blacklisted,
     };
+
+    if (ownerToAdd.blacklisted)
+      this.updateLatestModified(ownerToAdd.blacklisted);
+
     if (!this.owners) {
       this.owners = [ownerToAdd];
     } else {
       let existingOwner = this.owners.find(existingOwner => owner.handle === existingOwner.handle);
       if (existingOwner) {
-        // Update display name just in case
+        // Update display name and blacklist status
         existingOwner.displayName = ownerToAdd.displayName;
+        existingOwner.blacklisted = ownerToAdd.blacklisted;
         // Make sure we reference the item that is in the array already
         ownerToAdd = existingOwner;
       }else {
@@ -254,17 +260,21 @@ export class PublicHeaders extends PublicBase {
 
 export class PublicItems extends PublicBase {
 
-  private owner: string;
+  private displayName: string;
+  private ownerType: string;
   private format: string;
   private content: any;
+  private blacklisted?: number;
 
   // Constructor
 
   constructor(itemsResponse: any) {
     super();
-    this.owner = itemsResponse.owner;
+    this.displayName = itemsResponse.displayName;
+    this.ownerType = itemsResponse.ownerType;
     this.format = itemsResponse.format;
     this.content = itemsResponse.content;
+    this.blacklisted = itemsResponse.blacklisted;
     this.updateLatestModified(itemsResponse.modified);
     this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags, itemsResponse.unpublished);
   }
@@ -273,9 +283,15 @@ export class PublicItems extends PublicBase {
 
   public updateItems(itemsResponse: any) {
     if (itemsResponse.modified) this.updateLatestModified(itemsResponse.modified);
-    if (itemsResponse.owner) this.owner = itemsResponse.owner;
+    if (itemsResponse.displayName) this.displayName = itemsResponse.displayName;
+    if (itemsResponse.ownerType) this.ownerType = itemsResponse.ownerType;
     if (itemsResponse.format) this.format = itemsResponse.format;
     if (itemsResponse.content) this.content = itemsResponse.content;
+    if (itemsResponse.blacklisted) {
+      this.blacklisted = itemsResponse.blacklisted;
+    } else if (this.blacklisted) {
+      this.blacklisted = undefined;
+    }
     this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags, itemsResponse.unpublished);
     this.synced = Date.now();
   }
@@ -306,6 +322,16 @@ export class PublicItems extends PublicBase {
         note.keywords = note.keywords.concat(parentKeywords);
     }
     return note;
+  }
+
+  public getOwner(): any {
+    return {
+      displayName: this.displayName,
+      ownerType: this.ownerType,
+      blacklisted: this.blacklisted,
+      content: this.content,
+      format: this.format,
+    };
   }
 
   // Private
