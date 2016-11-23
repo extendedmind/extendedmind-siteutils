@@ -21,6 +21,18 @@
       "title": "Public note by Timo"
     }]
   }, {
+    "handle": "jp",
+    "displayName": "JP",
+    "notes": [{
+      "path": "jp_testing",
+      "uuid": "338ef806-a1b0-4fa0-8f5c-1c2105b16f6f",
+      "published": 1478194097732,
+      "indexed": 1478194097732,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194097732,
+      "title": "JP Testing"
+    }]
+  }, {
     "handle": "lauri",
     "displayName": "lauri@extendedmind.org",
     "notes": [{

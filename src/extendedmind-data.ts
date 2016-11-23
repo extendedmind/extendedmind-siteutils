@@ -23,7 +23,13 @@ export class PublicBase {
       // Start with a full copy of the notes array
       let filteredNotes = this.notes.slice();
       for (let i = 0; i < filters.length; i++) {
-        if (filters[i].type === "index") {
+        if (filters[i].type === "blacklisted") {
+          for (let j = filteredNotes.length - 1; j >= 0; j--) {
+            if (filteredNotes[j].owner && filteredNotes[j].owner.blacklisted){
+              filteredNotes.splice(j, 1);
+            }
+          }
+        }else if (filters[i].type === "index") {
           if (filters[i].start > this.notes.length - 1 || filters[i].max === 0) {
             // The index is bigger than the size of the array, or only zero notes are requested,
             // just return an empty array
@@ -63,6 +69,7 @@ export class PublicBase {
   }
 
   public getTags(): Array<any> {
+    if (this.tags === undefined) return [];
     return this.tags;
   }
 

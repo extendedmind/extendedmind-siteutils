@@ -35,6 +35,16 @@ server.get('/v2/public/lauri', function(req, res){
   }
 });
 
+const mockJPPublicItemsResponse = require('./test/mockJPPublicItemsResponse.json');
+const mockJPPublicItemsModifiedResponse = require('./test/mockJPPublicItemsModifiedResponse.json');
+server.get('/v2/public/jp', function(req, res){
+  if (req.query.modified){
+    res.send(mockJPPublicItemsModifiedResponse);
+  }else{
+    res.send(mockJPPublicItemsResponse);
+  }
+});
+
 const mockInfoResponse = require('./test/mockInfoResponse.json');
 const mockInfoLatestResponse = require('./test/mockInfoLatestResponse.json');
 const mockInfoLatestHistoryResponse = require('./test/mockInfoLatestHistoryResponse.json');

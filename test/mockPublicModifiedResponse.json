@@ -12,8 +12,11 @@
       "modified": 1478194090000,
       "title": "updated notes on productivity"
     }]
-  },
-  {
+  }, {
+    "handle": "jp",
+    "displayName": "JP",
+    "blacklisted": 1479889668079
+  }, {
     "handle": "lauri",
     "displayName": "lauri@extendedmind.org",
     "unpublished": ["0e647a3a-821d-452b-9f61-8bebae339b3f"]
