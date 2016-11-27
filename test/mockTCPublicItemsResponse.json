@@ -1,0 +1,74 @@
+{
+  "modified": 1478194086479,
+  "notes": [{
+    "format": "md",
+    "uuid": "f454c8af-402b-4028-9ebf-91ad7b413711",
+    "title": "list of servers",
+    "content": "servers:\n\n*one\n*two\n*three",
+    "visibility": {
+      "path": "list-of-servers",
+      "published": 1478194087544,
+      "indexed": 1478194087544,
+      "licence": "CC BY-SA 4.0",
+      "shortId": "930",
+      "publishedRevision": 1
+    },
+    "relationships": {
+      "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["14454e3d-80f1-4fc7-a22a-6856810f06e3"]]]
+    },
+    "modified": 1478194087544,
+    "created": 1478194086544
+  }, {
+    "format": "md",
+    "uuid": "dec4b2bf-cf63-4ceb-b8b5-b197a1a65abc",
+    "title": "note authored note by timo",
+    "content": "**test content by timo**",
+    "visibility": {
+      "path": "authored-note",
+      "published": 1478194087543,
+      "indexed": 1478194087543,
+      "licence": "CC BY-SA 4.0",
+      "shortId": "939",
+      "publishedRevision": 2
+    },
+    "relationships": {
+      "assignee": "55449eb6-2fb3-41d5-b806-b4e3be5692cc"
+    },
+    "modified": 1478194087543,
+    "created": 1478194086543
+  }, {
+    "format": "md",
+    "uuid": "a58833c8-ed4e-4e45-b529-e316c213f377",
+    "title": "note authored note by tuomas",
+    "content": "*test content by Tuomas*",
+    "visibility": {
+      "path": "authored-note-2",
+      "published": 1478194087542,
+      "indexed": 1478194087542,
+      "licence": "CC BY-SA 4.0",
+      "shortId": "938",
+      "publishedRevision": 2
+    },
+    "relationships": {
+      "assignee": "e83c9652-ef62-4aa8-a38b-fb53f06f8f5b"
+    },
+    "modified": 1478194087542,
+    "created": 1478194086542
+  }],
+  "assignees": [{
+    "uuid": "55449eb6-2fb3-41d5-b806-b4e3be5692cc",
+    "displayName": "Timo",
+    "handle": "timo"
+  }, {
+    "uuid": "e83c9652-ef62-4aa8-a38b-fb53f06f8f5b",
+    "displayName": "Tuomas"
+  }],
+  "displayName": "Test Company",
+  "ownerType": "collective",
+  "collectiveTags": [["11111111-1111-1111-1111-111111111111", [{
+    "uuid": "14454e3d-80f1-4fc7-a22a-6856810f06e3",
+    "modified": 1478194087491,
+    "title": "technology",
+    "tagType": "keyword"
+  }]]]
+}

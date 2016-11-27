@@ -248,6 +248,28 @@
       "licence": "CC BY-SA 4.0",
       "modified": 1478194087544,
       "title": "list of servers"
+    }, {
+      "path": "authored-note",
+      "uuid": "dec4b2bf-cf63-4ceb-b8b5-b197a1a65abc",
+      "published": 1478194087543,
+      "indexed": 1478194087543,
+      "licence": "CC BY-SA 4.0",
+      "modified": 1478194087543,
+      "title": "note authored note by timo",
+      "assignee": {
+        "displayName": "Timo",
+        "handle": "timo"
+      }
+    }, {
+      "path": "authored-note-2",
+      "uuid": "a58833c8-ed4e-4e45-b529-e316c213f377",
+      "published": 1478194087542,
+      "indexed": 1478194087542,
+      "modified": 1478194087542,
+      "title": "note authored note by tuomas",
+      "assignee": {
+        "displayName": "Tuomas"
+      }
     }]
   }],
   "commonTags": [{

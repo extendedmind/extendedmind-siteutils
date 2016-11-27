@@ -45,6 +45,16 @@ server.get('/v2/public/jp', function(req, res){
   }
 });
 
+const mockTCPublicItemsResponse = require('./test/mockTCPublicItemsResponse.json');
+const mockTCPublicItemsModifiedResponse = require('./test/mockTCPublicItemsModifiedResponse.json');
+server.get('/v2/public/tc', function(req, res){
+  if (req.query.modified){
+    res.send(mockTCPublicItemsModifiedResponse);
+  }else{
+    res.send(mockTCPublicItemsResponse);
+  }
+});
+
 const mockInfoResponse = require('./test/mockInfoResponse.json');
 const mockInfoLatestResponse = require('./test/mockInfoLatestResponse.json');
 const mockInfoLatestHistoryResponse = require('./test/mockInfoLatestHistoryResponse.json');

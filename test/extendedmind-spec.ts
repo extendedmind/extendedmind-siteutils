@@ -31,12 +31,12 @@ describe("extendedmind-siteutils", () => {
     const headers: PublicHeaders = await utils.getPublicHeaders();
     const originalNotes = headers.getNotes();
     const originalTags = headers.getTags();
-    expect(originalNotes.length).to.equal(24);
+    expect(originalNotes.length).to.equal(26);
     expect(originalTags.length).to.equal(5);
     const opinionTagUUID = originalTags.find(tag => tag.title === "opinion").uuid;
     const originalNoteUuid = originalNotes.find(note => note.title === "notes on productivity").uuid;
     const originalFilteredNotes = headers.getNotes(filters);
-    expect(originalFilteredNotes.length).to.equal(24);
+    expect(originalFilteredNotes.length).to.equal(26);
 
     // Get modified response, which unpublishes one note, changes the title of another,
     // and changes also common tag to new one, thus productivity=>work combination disappears,
@@ -46,12 +46,16 @@ describe("extendedmind-siteutils", () => {
     const updatedTags = updatedHeaders.getTags();
     const updatedProdNote = updatedNotes.find(note => note.uuid === originalNoteUuid);
     expect(updatedProdNote.title).to.equal("updated notes on productivity");
-    expect(updatedNotes.length).to.equal(23);
+    expect(updatedNotes.length).to.equal(25);
     expect(updatedTags.length).to.equal(4);
     expect(updatedTags.find(updatedTag => updatedTag.uuid === opinionTagUUID)).to.be.undefined;
     expect(updatedTags.find(updatedTag => updatedTag.title === "life")).to.not.be.undefined;
     const updatedFilteredNotes = headers.getNotes(filters);
-    expect(updatedFilteredNotes.length).to.equal(22);
+    expect(updatedFilteredNotes.length).to.equal(24);
+
+    // Validate assignee
+    const author = updatedNotes.find(note => note.path === "authored-note").assignee;
+    expect(author.handle).to.equal("timo");
   });
 
   it("should return public items for timo and update them accordingly", async function() {
@@ -63,8 +67,8 @@ describe("extendedmind-siteutils", () => {
     expect(originalTags.length).to.equal(3);
     const productivityTagUUID = originalTags.find(tag => tag.title === "productivity").uuid;
     const originalNoteUuid = originalNotes.find(note => note.title === "notes on productivity").uuid;
-    expect(timoUser.ownerType).to.equal("user")
-    expect(timoUser.displayName).to.equal("Timo")
+    expect(timoUser.type).to.equal("user");
+    expect(timoUser.displayName).to.equal("Timo");
 
     // Get modified response, which unpublishes one note and changes the title of another
     const updatedItems = await utils.getPublicItems("timo");
@@ -77,7 +81,7 @@ describe("extendedmind-siteutils", () => {
     expect(updatedTags.length).to.equal(2);
     expect(updatedTags.find(updatedTag => updatedTag.uuid === productivityTagUUID)).to.be.undefined;
     expect(updatedTags.find(updatedTag => updatedTag.title === "work")).to.not.be.undefined;
-    expect(updatedTimoUser.ownerType).to.equal("user")
+    expect(updatedTimoUser.type).to.equal("user")
     expect(updatedTimoUser.displayName).to.equal("Timo")
   });
 
@@ -114,5 +118,24 @@ describe("extendedmind-siteutils", () => {
 
   });
 
+  it("should return notes, some of them that are authored notes for Test Company", async function() {
+    const items: PublicItems = await utils.getPublicItems("tc");
+    const allNotes = items.getNotes();
+    const tags = items.getTags();
+    expect(allNotes.length).to.equal(3);
+    expect(tags.length).to.equal(1);
+    const owner = items.getOwner();
+    expect(owner.blacklisted).to.be.undefined;
+    const timoAuthoredNote = allNotes.find(note => note.title === "note authored note by timo");
+    expect(timoAuthoredNote.assignee.handle).to.equal("timo");
+
+    // Get modified response, which gives an empty response, nothing should changes
+    const updatedItems = await utils.getPublicItems("tc");
+    const updatedNotes = updatedItems.getNotes();
+    const updatedTags = updatedItems.getTags();
+    expect(updatedNotes.length).to.equal(3);
+    expect(updatedTags.length).to.equal(1);
+
+  });
 
 });

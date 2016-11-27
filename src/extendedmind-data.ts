@@ -196,13 +196,13 @@ export class PublicHeaders extends PublicBase {
     }
   }
 
-  private addOwner(owner: any, ownerType: string) {
+  private addOwner(owner: any, type: string) {
 
     // First add to owner array
     let ownerToAdd = {
       handle: owner.handle,
       displayName: owner.displayName,
-      ownerType: ownerType,
+      type: type,
       blacklisted: owner.blacklisted,
     };
 
@@ -262,6 +262,7 @@ export class PublicHeaders extends PublicBase {
     oldNote.keywords = newNote.keywords;
     oldNote.modified = newNote.modified;
     oldNote.published = newNote.published;
+    oldNote.assignee = newNote.assignee;
   }
 }
 
@@ -283,7 +284,8 @@ export class PublicItems extends PublicBase {
     this.content = itemsResponse.content;
     this.blacklisted = itemsResponse.blacklisted;
     this.updateLatestModified(itemsResponse.modified);
-    this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags, itemsResponse.unpublished);
+    this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags,
+                  itemsResponse.unpublished, itemsResponse.assignees);
   }
 
   // Public
@@ -299,7 +301,8 @@ export class PublicItems extends PublicBase {
     } else if (this.blacklisted) {
       this.blacklisted = undefined;
     }
-    this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags, itemsResponse.unpublished);
+    this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags,
+                  itemsResponse.unpublished, itemsResponse.assignees);
     this.synced = Date.now();
   }
 
@@ -334,7 +337,7 @@ export class PublicItems extends PublicBase {
   public getOwner(): any {
     return {
       displayName: this.displayName,
-      ownerType: this.ownerType,
+      type: this.ownerType,
       blacklisted: this.blacklisted,
       content: this.content,
       format: this.format,
@@ -344,7 +347,8 @@ export class PublicItems extends PublicBase {
   // Private
 
   private addItems(notes?: Array<any>, tags?: Array<any>,
-                   collectiveTags?: Array<Array<any>>, unpublished?: Array<any>) {
+                   collectiveTags?: Array<Array<any>>, unpublished?: Array<any>,
+                   assignees?: Array<any>) {
 
     let staleKeywords = [];
     if (tags) {
@@ -366,10 +370,17 @@ export class PublicItems extends PublicBase {
         let noteToUpdate = notes[i];
         if (noteToUpdate.relationships) {
           this.addTagsToNote(noteToUpdate, noteToUpdate.relationships.tags);
-          if (noteToUpdate.relationships && noteToUpdate.relationships.collectiveTags) {
-            let ct = noteToUpdate.relationships.collectiveTags;
-            for (let j = 0; j < ct.length; j++) {
-              noteToUpdate = this.addTagsToNote(noteToUpdate, ct[j][1], ct[j][0]);
+          if (noteToUpdate.relationships){
+            if (noteToUpdate.relationships.collectiveTags) {
+              let ct = noteToUpdate.relationships.collectiveTags;
+              for (let j = 0; j < ct.length; j++) {
+                noteToUpdate = this.addTagsToNote(noteToUpdate, ct[j][1], ct[j][0]);
+              }
+            }
+            if (noteToUpdate.relationships.assignee && assignees) {
+              // Add full assignee to directly to note
+              noteToUpdate.assignee =
+                assignees.find(assignee => assignee.uuid === noteToUpdate.relationships.assignee);
             }
           }
           delete noteToUpdate.relationships;
@@ -406,6 +417,6 @@ export class PublicItems extends PublicBase {
     oldNote.keywords = newNote.keywords;
     oldNote.modified = newNote.modified;
     oldNote.visibility = newNote.visibility;
+    oldNote.assignee = newNote.assignee;
   }
-
 }
