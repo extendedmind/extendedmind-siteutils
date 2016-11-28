@@ -1,8 +1,8 @@
 export class PublicBase {
   protected modified: number;
   protected synced: number;
-  protected tags: Array<any>;
-  protected notes: Array<any>;
+  protected tags: Array<any> = [];
+  protected notes: Array<any> = [];
 
   constructor() {
     this.updateSynced();
@@ -120,7 +120,6 @@ export class PublicBase {
   }
 
   protected updateNote(note: any, updateNoteFieldsFn: (oldNote: any, newNote: any) => void) {
-    if (!this.notes) this.notes = [];
     this.updateLatestModified(note.modified);
     for (let i = 0; i < this.notes.length; i++) {
       if (this.notes[i].uuid === note.uuid) {

@@ -126,7 +126,7 @@ describe("extendedmind-siteutils", () => {
     expect(tags.length).to.equal(1);
     const owner = items.getOwner();
     expect(owner.blacklisted).to.be.undefined;
-    const timoAuthoredNote = allNotes.find(note => note.title === "note authored note by timo");
+    const timoAuthoredNote = allNotes.find(note => note.title === "note authored by timo");
     expect(timoAuthoredNote.assignee.handle).to.equal("timo");
 
     // Get modified response, which gives an empty response, nothing should changes
