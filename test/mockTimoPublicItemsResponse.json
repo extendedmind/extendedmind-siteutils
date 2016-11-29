@@ -38,16 +38,17 @@
     },
     "created": 1478194086930
   }, {
-    "uuid": "ed13bdbc-7faf-4d7d-8fcc-c8ff6de007fa",
-    "modified": 1478194087126,
+    "uuid": "71bf88c5-9dad-44f0-b3bb-4bc5dfc270c0",
+    "modified": 1478194087915,
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["127e1a5c-fc0b-4f91-ac51-6e1cb2eb1254"]]]
     },
-    "content": "this is public",
-    "title": "Public note",
+    "content": "this is public\n\nhttps://extendedmind.org is an *address*\n\n* list\n* bullet\n\n\"quoted\"",
+    "title": "Public note by Timo",
     "visibility": {
-      "path": "test",
-      "published": 1478194087126,
+      "path": "timo-test-note",
+      "published": 1478194087915,
+      "indexed": 1478194087915,
       "licence": "CC BY-SA 4.0",
       "shortId": "521",
       "publishedRevision": 1

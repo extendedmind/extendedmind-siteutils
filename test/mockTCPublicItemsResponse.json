@@ -4,7 +4,7 @@
     "format": "md",
     "uuid": "f454c8af-402b-4028-9ebf-91ad7b413711",
     "title": "list of servers",
-    "content": "servers:\n\n*one\n*two\n*three",
+    "content": "servers:\n\n* one\n* two\n* three",
     "visibility": {
       "path": "list-of-servers",
       "published": 1478194087544,
