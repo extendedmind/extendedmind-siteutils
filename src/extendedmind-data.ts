@@ -53,6 +53,7 @@ export class PublicBase {
                     let parentTag = this.getTagByUUID(filteredNotes[j].keywords[k].parent);
                     if (parentTag && parentTag.title === filters[i].include) {
                       keywordFound = true;
+                      break;
                     }
                   }
                 }
@@ -139,8 +140,23 @@ export class PublicBase {
   }
 
   protected updateTag(tag: any) {
-    if (!this.tags) this.tags = [];
     this.updateLatestModified(tag.modified);
+
+    // Handle setting the parentTitle property
+    if (tag.parent) {
+      // Try to find parent in existing tags
+      const parentTag = this.getTagByUUID(tag.parent);
+      if (parentTag) {
+        tag.parentTitle = parentTag.title;
+      }
+    }
+    // Check if this tag is a parent to other tags and update their title
+    for (let i = 0; i < this.tags.length; i++) {
+      if (this.tags[i].parent === tag.uuid) {
+        this.tags[i].parentTitle = tag.title;
+      }
+    }
+
     for (let i = 0; i < this.tags.length; i++) {
       if (this.tags[i].uuid === tag.uuid) {
         this.tags[i] = tag;
@@ -152,7 +168,7 @@ export class PublicBase {
   }
 
   protected getTagByUUID(uuid: string) {
-    if (this.tags) {
+    if (this.tags.length) {
       for (let i = 0; i < this.tags.length; i++) {
         if (this.tags[i].uuid === uuid) {
           return this.tags[i];
@@ -314,25 +330,6 @@ export class PublicItems extends PublicBase {
     }
   }
 
-  public addKeywordsToExternalNote(note: any) {
-    this.addTagsToNote(note,
-      note.relationships && note.relationships.tags ? note.relationships.tags : undefined);
-    if (note.keywords && note.keywords.length) {
-      let parentKeywords = [];
-      for (let i = 0; i < note.keywords.length; i++) {
-        if (note.keywords[i].parent) {
-          let parentTag = this.getTagByUUID(note.keywords[i].parent);
-          if (parentTag && parentKeywords.indexOf(parentTag) === -1) {
-            parentKeywords.push(parentTag);
-          }
-        }
-      }
-      if (parentKeywords.length)
-        note.keywords = note.keywords.concat(parentKeywords);
-    }
-    return note;
-  }
-
   public getOwner(): any {
     return {
       displayName: this.displayName,
@@ -418,4 +415,58 @@ export class PublicItems extends PublicBase {
     oldNote.visibility = newNote.visibility;
     oldNote.assignee = newNote.assignee;
   }
+}
+
+export function processExternalPublicNote(publicNote: any) {
+  if (publicNote.note.relationships &&
+      (publicNote.note.relationships.tags || publicNote.note.relationships.collectiveTags)) {
+    publicNote.note.keywords = [];
+
+    // First: add local tags
+    if (publicNote.note.relationships.tags) {
+      const localKeywords = publicNote.note.relationships.tags.map(
+        tagUUID => {
+          let fullTag = publicNote.tags.find(tag => tag.uuid === tagUUID);
+          if (fullTag.parent){
+            fullTag.parentTitle =
+              publicNote.tags.find(tagForParentSearch => tagForParentSearch.uuid === fullTag.parent).title;
+          }
+          return fullTag;
+        });
+      publicNote.note.keywords.push(...localKeywords);
+    }
+
+    // Second: add collective tags
+    if (publicNote.note.relationships.collectiveTags) {
+
+      let collectiveKeywords = [];
+      for (let i = 0; i < publicNote.note.relationships.collectiveTags.length; i++) {
+        const collectiveUUID = publicNote.note.relationships.collectiveTags[i][0];
+        const tagUUIDsForCollective = publicNote.note.relationships.collectiveTags[i][1];
+        for (let j = 0; j < tagUUIDsForCollective.length; j++) {
+          const fullTagsForCollective =
+            publicNote.collectiveTags
+              .find(collectiveTagsInfo => collectiveTagsInfo[0] === collectiveUUID)[1];
+          const fullTag = fullTagsForCollective.find(fullTag =>
+            fullTag.uuid === tagUUIDsForCollective[j]);
+          if (fullTag.parent) {
+            fullTag.parentTitle = fullTagsForCollective.find(
+              tagForParentSearch => tagForParentSearch.uuid === fullTag.parent).title;
+          }
+          collectiveKeywords.push(fullTag);
+        }
+      }
+      publicNote.note.keywords.push(...collectiveKeywords);
+    }
+
+    // Third: add assignee
+    if (publicNote.assignee) {
+      publicNote.note.assignee = publicNote.assignee;
+    }
+  }
+  publicNote.note.owner = {
+    type: publicNote.ownerType,
+    displayName: publicNote.displayName,
+  };
+  return publicNote.note;
 }

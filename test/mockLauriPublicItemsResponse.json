@@ -18,7 +18,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["31f4be1f-ac52-4f77-baf7-06e85b72cf12"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note by Lauri",
     "visibility": {
       "path": "lauri-test-note",
@@ -37,7 +37,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 2 by Lauri",
     "visibility": {
       "path": "lauri-test-note-2",
@@ -56,7 +56,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 3 by Lauri",
     "visibility": {
       "path": "lauri-test-note-3",
@@ -75,7 +75,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 4 by Lauri",
     "visibility": {
       "path": "lauri-test-note-4",
@@ -94,7 +94,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 5 by Lauri",
     "visibility": {
       "path": "lauri-test-note-5",
@@ -113,7 +113,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 6 by Lauri",
     "visibility": {
       "path": "lauri-test-note-6",
@@ -132,7 +132,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 7 by Lauri",
     "visibility": {
       "path": "lauri-test-note-7",
@@ -151,7 +151,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 8 by Lauri",
     "visibility": {
       "path": "lauri-test-note-8",
@@ -170,7 +170,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 9 by Lauri",
     "visibility": {
       "path": "lauri-test-note-9",
@@ -189,7 +189,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 10 by Lauri",
     "visibility": {
       "path": "lauri-test-note-10",
@@ -208,7 +208,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 11 by Lauri",
     "visibility": {
       "path": "lauri-test-note-11",
@@ -227,7 +227,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 12 by Lauri",
     "visibility": {
       "path": "lauri-test-note-12",
@@ -246,7 +246,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 13 by Lauri",
     "visibility": {
       "path": "lauri-test-note-13",
@@ -265,7 +265,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 14 by Lauri",
     "visibility": {
       "path": "lauri-test-note-14",
@@ -284,7 +284,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 15 by Lauri",
     "visibility": {
       "path": "lauri-test-note-15",
@@ -303,7 +303,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 16 by Lauri",
     "visibility": {
       "path": "lauri-test-note-16",
@@ -322,7 +322,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 17 by Lauri",
     "visibility": {
       "path": "lauri-test-note-17",
@@ -341,7 +341,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 18 by Lauri",
     "visibility": {
       "path": "lauri-test-note-18",
@@ -360,7 +360,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 19 by Lauri",
     "visibility": {
       "path": "lauri-test-note-19",
@@ -379,7 +379,7 @@
     "relationships": {
       "collectiveTags": [["11111111-1111-1111-1111-111111111111", ["21f4be1f-ac52-4f77-baf7-06e85b72cf11"]]]
     },
-    "content": "#test note inner heading 1\ntext under it inner heading 1\n##test note inner heading 2\ntext under it inner heading 2",
+    "content": "# test note inner heading 1\n\ntext under it inner heading 1\n\n### test note inner heading 2\n\ntext under it",
     "title": "Public note 20 by Lauri",
     "visibility": {
       "path": "lauri-test-note-20",

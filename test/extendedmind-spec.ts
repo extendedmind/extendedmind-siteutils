@@ -33,6 +33,8 @@ describe("extendedmind-siteutils", () => {
     const originalTags = headers.getTags();
     expect(originalNotes.length).to.equal(26);
     expect(originalTags.length).to.equal(5);
+    const productivityTag = originalTags.find(tag => tag.title === "productivity");
+    expect(productivityTag.parentTitle).to.equal("work");
     const opinionTagUUID = originalTags.find(tag => tag.title === "opinion").uuid;
     const originalNoteUuid = originalNotes.find(note => note.title === "notes on productivity").uuid;
     const originalFilteredNotes = headers.getNotes(filters);
@@ -65,7 +67,8 @@ describe("extendedmind-siteutils", () => {
     const timoUser = items.getOwner();
     expect(originalNotes.length).to.equal(2);
     expect(originalTags.length).to.equal(3);
-    const productivityTagUUID = originalTags.find(tag => tag.title === "productivity").uuid;
+    const productivityTag = originalTags.find(tag => tag.title === "productivity");
+    expect(productivityTag.parentTitle).to.equal("work");
     const originalNoteUuid = originalNotes.find(note => note.title === "notes on productivity").uuid;
     expect(timoUser.type).to.equal("user");
     expect(timoUser.displayName).to.equal("Timo");
@@ -79,7 +82,7 @@ describe("extendedmind-siteutils", () => {
     expect(updatedProdNote.title).to.equal("updated notes on productivity");
     expect(updatedNotes.length).to.equal(2);
     expect(updatedTags.length).to.equal(2);
-    expect(updatedTags.find(updatedTag => updatedTag.uuid === productivityTagUUID)).to.be.undefined;
+    expect(updatedTags.find(updatedTag => updatedTag.uuid === productivityTag.uuid)).to.be.undefined;
     expect(updatedTags.find(updatedTag => updatedTag.title === "work")).to.not.be.undefined;
     expect(updatedTimoUser.type).to.equal("user")
     expect(updatedTimoUser.displayName).to.equal("Timo")
@@ -136,6 +139,17 @@ describe("extendedmind-siteutils", () => {
     expect(updatedNotes.length).to.equal(3);
     expect(updatedTags.length).to.equal(1);
 
+  });
+
+  it("should return a preview note", async function() {
+    const previewItem = await utils.getPreviewItem(
+      "55449eb6-2fb3-41d5-b806-b4e3be5692cc",
+      "c876628e-1d67-411a-84f9-5dfedbed8872",
+      1);
+    expect(previewItem.keywords.length).to.equal(2);
+    const previewItemKeywordWithParent = previewItem.keywords.find(keyword => keyword.parent !== undefined);
+    expect(previewItemKeywordWithParent.parentTitle).to.equal("work");
+    expect(previewItem.owner.type).to.equal("user");
   });
 
 });

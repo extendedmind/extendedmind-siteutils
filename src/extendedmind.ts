@@ -3,7 +3,7 @@ import superagentPromise = require("superagent-promise");
 const request = superagentPromise(superagent, Promise);
 
 import * as lruCache from "lru-cache";
-import {PublicItems, PublicHeaders} from "./extendedmind-data";
+import {PublicItems, PublicHeaders, processExternalPublicNote} from "./extendedmind-data";
 
 export interface ClientPlatformInfo {
   url?: string;
@@ -132,7 +132,7 @@ export class Utils {
     let backendResponse = await request.get(this.backendApiUrl + "/v2/owners/" + ownerUUID + "/data/items/" +
                                               itemUUID + "/preview/" + previewCode).end();
     if (backendResponse.status === 200) {
-      return backendResponse.body;
+      return processExternalPublicNote(backendResponse.body);
     }
   }
 

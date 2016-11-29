@@ -68,6 +68,11 @@ server.get('/info', function(req, res){
   }
 });
 
+const mockPreviewResponse = require('./test/mockTimoPreviewItemResponse.json');
+server.get('/v2/owners/55449eb6-2fb3-41d5-b806-b4e3be5692cc/data/items/c876628e-1d67-411a-84f9-5dfedbed8872/preview/1', function(req, res){
+  res.send(mockPreviewResponse);
+});
+
 server.listen(3004, function () {
   console.log('Minimal express server is running at port 3004')
 });
