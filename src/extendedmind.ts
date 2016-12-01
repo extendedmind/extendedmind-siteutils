@@ -40,7 +40,7 @@ export class Utils {
   private cacheSettings: any;
 
   // Cache object for all public notes per owner
-  private handleCache: any;
+  private handleCache: lruCache.Cache<PublicItems>;
   private lastHandleCacheReset: number;
   // Cache object for all public notes headers
   private headers: any;
@@ -61,7 +61,7 @@ export class Utils {
     let publicOwnerUrl = this.backendApiUrl + "/v2/public/" + handle;
     let backendResponse = await request.get(publicOwnerUrl).end();
     if (backendResponse.status === 200) {
-      return new PublicItems(backendResponse.body);
+      return new PublicItems(handle, backendResponse.body);
     }
   }
 
@@ -103,11 +103,11 @@ export class Utils {
     let todayMidnight = new Date().setUTCHours(0, 0, 1, 0);
     if (!this.lastHandleCacheReset || this.lastHandleCacheReset < todayMidnight) {
       this.lastHandleCacheReset = Date.now();
-      this.handleCache = lruCache(
+      this.handleCache = lruCache<PublicItems>(
         { max: this.cacheSettings.maxCachedHandles}
       );
     }
-    const cachedItems = this.handleCache.get(handle);
+    const cachedItems: PublicItems = this.handleCache.get(handle);
     const items = cachedItems ?
       await this.refreshPublicItems(handle, cachedItems) : await this.fetchPublicItems(handle);
     this.handleCache.set(handle, items);
@@ -148,6 +148,23 @@ export class Utils {
         .set("Accept", "application/json")
         .end();
     return <Info> infoResponse.body;
+  }
+
+  public async getShortId(shortId) {
+    // First, search if given short id is already cached
+    if (this.handleCache){
+      const cachedPublicItems = this.handleCache.values();
+      for (let i = 0; i < cachedPublicItems.length; i++) {
+        const shortIdInfo = cachedPublicItems[i].getShortId(shortId);
+        if (shortIdInfo) return shortIdInfo;
+      }
+    }
+
+    // Not cached, get it from the backend
+    let backendResponse = await request.get(this.backendApiUrl + "/v2/short/" + shortId).end();
+    if (backendResponse.status === 200) {
+      return backendResponse.body;
+    }
   }
 };
 

@@ -7,7 +7,7 @@
     "title": "JP Testing",
     "content": "# long test *note* for JP \n## with some subheading",
     "visibility": {
-      "path": "jp_testing",
+      "path": "jp-testing",
       "published": 1478194097732,
       "indexed": 1478194097732,
       "licence": "CC BY-SA 4.0",
@@ -18,5 +18,6 @@
   }],
   "displayName": "JP",
   "ownerType": "user",
+  "shortId": "3",
   "blacklisted": 1479889668079
 }

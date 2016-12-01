@@ -152,4 +152,24 @@ describe("extendedmind-siteutils", () => {
     expect(previewItem.owner.type).to.equal("user");
   });
 
+  it("should get a short id response", async function() {
+    const timoShortId = await utils.getShortId("1");
+    expect(timoShortId.handle).to.equal("timo");
+    expect(timoShortId.path).to.be.undefined;
+    const productivityShortId = await utils.getShortId("421");
+    expect(productivityShortId.handle).to.equal("timo");
+    expect(productivityShortId.path).to.equal("productivity");
+
+    // Get items again, this should cause cache to start working
+    await utils.getPublicItems("timo");
+    const cachedTimoShortId = await utils.getShortId("1");
+    expect(cachedTimoShortId.handle).to.equal("timo");
+    expect(cachedTimoShortId.path).to.be.undefined;
+    const cachedProductivityShortId = await utils.getShortId("421");
+    expect(cachedProductivityShortId.handle).to.equal("timo");
+    expect(cachedProductivityShortId.path).to.equal("productivity");
+
+
+  });
+
 });

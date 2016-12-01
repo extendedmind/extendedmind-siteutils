@@ -68,6 +68,87 @@ server.get('/info', function(req, res){
   }
 });
 
+server.get('/v2/short/:id', function(req, res){
+  if (req.params.id === "1"){
+    res.send({
+      handle: "timo",
+    });
+  } else if (req.params.id === "2"){
+    res.send({
+      handle: "lauri",
+    });
+  } else if (req.params.id === "3"){
+    res.send({
+      handle: "jp",
+    });
+  } else if (req.params.id === "4"){
+    res.send({
+      handle: "tc",
+    });
+  } else if (req.params.id === "421"){
+    res.send({
+      handle: "timo",
+      path: "productivity",
+    });
+  } else if (req.params.id === "521"){
+    res.send({
+      handle: "timo",
+      path: "timo-test-note",
+    });
+  } else if (req.params.id === "930"){
+    res.send({
+      handle: "tc",
+      path: "list-of-servers",
+    });
+  } else if (req.params.id === "939"){
+    res.send({
+      handle: "tc",
+      path: "authored-note",
+    });
+  } else if (req.params.id === "938"){
+    res.send({
+      handle: "tc",
+      path: "authored-note-2",
+    });
+  } else if (req.params.id === "521"){
+    res.send({
+      handle: "lauri",
+      path: "lauri-test-note",
+    });
+  } else if (req.params.id === "522"){
+    res.send({
+      handle: "lauri",
+      path: "lauri-test-note-2",
+    });
+  } else if (req.params.id === "523"){
+    res.send({
+      handle: "lauri",
+      path: "lauri-test-note-3",
+    });
+  } else if (req.params.id === "524"){
+    res.send({
+      handle: "lauri",
+      path: "lauri-test-note-4",
+    });
+  } else if (req.params.id === "525"){
+    res.send({
+      handle: "lauri",
+      path: "lauri-test-note-5",
+    });
+  } else if (req.params.id === "526"){
+    res.send({
+      handle: "lauri",
+      path: "lauri-test-note-6",
+    });
+  // Skip other lauri notes
+  } else if (req.params.id === "1021"){
+    res.send({
+      handle: "jp",
+      path: "jp-testing",
+    });
+  }
+});
+
 const mockPreviewResponse = require('./test/mockTimoPreviewItemResponse.json');
 server.get('/v2/owners/55449eb6-2fb3-41d5-b806-b4e3be5692cc/data/items/c876628e-1d67-411a-84f9-5dfedbed8872/preview/1', function(req, res){
   res.send(mockPreviewResponse);

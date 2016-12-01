@@ -65,6 +65,7 @@
   }],
   "displayName": "Test Company",
   "ownerType": "collective",
+  "shortId": "4",
   "collectiveTags": [["11111111-1111-1111-1111-111111111111", [{
     "uuid": "14454e3d-80f1-4fc7-a22a-6856810f06e3",
     "modified": 1478194087491,

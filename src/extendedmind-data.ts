@@ -287,16 +287,18 @@ export class PublicItems extends PublicBase {
   private ownerType: string;
   private format: string;
   private content: any;
+  private shortId: any;
   private blacklisted?: number;
 
   // Constructor
 
-  constructor(itemsResponse: any) {
+  constructor(private handle: string, itemsResponse: any) {
     super();
     this.displayName = itemsResponse.displayName;
     this.ownerType = itemsResponse.ownerType;
     this.format = itemsResponse.format;
     this.content = itemsResponse.content;
+    this.shortId = itemsResponse.shortId;
     this.blacklisted = itemsResponse.blacklisted;
     this.updateLatestModified(itemsResponse.modified);
     this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags,
@@ -311,6 +313,7 @@ export class PublicItems extends PublicBase {
     if (itemsResponse.ownerType) this.ownerType = itemsResponse.ownerType;
     if (itemsResponse.format) this.format = itemsResponse.format;
     if (itemsResponse.content) this.content = itemsResponse.content;
+    if (itemsResponse.shortId) this.shortId = itemsResponse.shortId;
     if (itemsResponse.blacklisted) {
       this.blacklisted = itemsResponse.blacklisted;
     } else if (this.blacklisted) {
@@ -338,6 +341,23 @@ export class PublicItems extends PublicBase {
       content: this.content,
       format: this.format,
     };
+  }
+
+  public getShortId(shortId: string): any {
+    // Check if shortId matches owner directly
+    if (this.shortId === shortId) {
+      return {
+        handle: this.handle,
+      };
+    }
+    // Check if shortId matches owner directly
+    const noteForShortId = this.notes.find(note => note.visibility && note.visibility.shortId === shortId);
+    if (noteForShortId) {
+      return {
+        handle: this.handle,
+        path: noteForShortId.visibility.path,
+      };
+    }
   }
 
   // Private
@@ -381,6 +401,9 @@ export class PublicItems extends PublicBase {
           }
           delete noteToUpdate.relationships;
         }
+        if (noteToUpdate.visibility.publicUi) {
+          noteToUpdate.ui = JSON.parse(noteToUpdate.visibility.publicUi);
+        }
         let staleKeywordsInNote = this.updateNote(noteToUpdate, this.updateNoteFields);
         if (staleKeywordsInNote) staleKeywords.push.apply(staleKeywords, staleKeywordsInNote);
       }
@@ -414,6 +437,7 @@ export class PublicItems extends PublicBase {
     oldNote.modified = newNote.modified;
     oldNote.visibility = newNote.visibility;
     oldNote.assignee = newNote.assignee;
+    oldNote.ui = newNote.ui;
   }
 }
 
