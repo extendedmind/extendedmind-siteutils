@@ -64,14 +64,15 @@ describe("extendedmind-siteutils", () => {
     const items: PublicItems = await utils.getPublicItems("timo");
     const originalNotes = items.getNotes();
     const originalTags = items.getTags();
-    const timoUser = items.getOwner();
     expect(originalNotes.length).to.equal(2);
+    const timoUser = items.getOwner();
     expect(originalTags.length).to.equal(3);
     const productivityTag = originalTags.find(tag => tag.title === "productivity");
     expect(productivityTag.parentTitle).to.equal("work");
     const originalNoteUuid = originalNotes.find(note => note.title === "notes on productivity").uuid;
     expect(timoUser.type).to.equal("user");
     expect(timoUser.displayName).to.equal("Timo");
+    expect(timoUser.ui.sharing).to.be.true;
 
     // Get modified response, which unpublishes one note and changes the title of another
     const updatedItems = await utils.getPublicItems("timo");

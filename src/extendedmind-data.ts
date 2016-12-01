@@ -285,10 +285,11 @@ export class PublicItems extends PublicBase {
 
   private displayName: string;
   private ownerType: string;
-  private format: string;
-  private content: any;
   private shortId: any;
+  private format?: string;
+  private content?: any;
   private blacklisted?: number;
+  private ui?: any;
 
   // Constructor
 
@@ -300,6 +301,7 @@ export class PublicItems extends PublicBase {
     this.content = itemsResponse.content;
     this.shortId = itemsResponse.shortId;
     this.blacklisted = itemsResponse.blacklisted;
+    if (itemsResponse.publicUi) this.ui = JSON.parse(itemsResponse.publicUi);
     this.updateLatestModified(itemsResponse.modified);
     this.addItems(itemsResponse.notes, itemsResponse.tags, itemsResponse.collectiveTags,
                   itemsResponse.unpublished, itemsResponse.assignees);
@@ -340,6 +342,8 @@ export class PublicItems extends PublicBase {
       blacklisted: this.blacklisted,
       content: this.content,
       format: this.format,
+      shortId: this.shortId,
+      ui: this.ui,
     };
   }
 
