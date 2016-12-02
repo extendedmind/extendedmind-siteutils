@@ -290,12 +290,14 @@ export class PublicItems extends PublicBase {
   private content?: any;
   private blacklisted?: number;
   private ui?: any;
-  private processedModified?: number;
+  private ownerModified?: number;
+  private ownerProcessed?: any;
 
   // Constructor
 
   constructor(private handle: string, itemsResponse: any) {
     super();
+    this.ownerModified = itemsResponse.modified;
     this.displayName = itemsResponse.displayName;
     this.ownerType = itemsResponse.ownerType;
     this.format = itemsResponse.format;
@@ -345,8 +347,8 @@ export class PublicItems extends PublicBase {
       format: this.format,
       shortId: this.shortId,
       ui: this.ui,
-      modified: this.modified,
-      processedModified: this.processedModified,
+      modified: this.ownerModified,
+      processed: this.ownerProcessed,
     };
   }
 
@@ -367,8 +369,11 @@ export class PublicItems extends PublicBase {
     }
   }
 
-  public setOwnerModifiedProcessed() {
-    this.processedModified = this.modified;
+  public setOwnerProcessed(data) {
+    this.ownerProcessed = {
+      modified: this.ownerModified,
+      data: data,
+    };
   }
 
   // Private
