@@ -290,6 +290,7 @@ export class PublicItems extends PublicBase {
   private content?: any;
   private blacklisted?: number;
   private ui?: any;
+  private processedModified?: number;
 
   // Constructor
 
@@ -344,6 +345,8 @@ export class PublicItems extends PublicBase {
       format: this.format,
       shortId: this.shortId,
       ui: this.ui,
+      modified: this.modified,
+      processedModified: this.processedModified,
     };
   }
 
@@ -362,6 +365,10 @@ export class PublicItems extends PublicBase {
         path: noteForShortId.visibility.path,
       };
     }
+  }
+
+  public setOwnerModifiedProcessed() {
+    this.processedModified = this.modified;
   }
 
   // Private
