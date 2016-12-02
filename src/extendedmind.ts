@@ -137,7 +137,7 @@ export class Utils {
   }
 
   public async getInfo(latest?: boolean, history?: boolean): Promise<Info> {
-    let url = this.backendApiUrl + "/info";
+    let url = this.backendApiUrl + "/v2/info";
     if (latest === true) {
       url += "?latest=true";
       if (history === true) {
