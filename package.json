@@ -26,7 +26,7 @@
     "wait-on": "^1.5.3"
   },
   "scripts": {
-    "prepublish": "npm run clean && typings install && npm run build",
+    "prepare": "npm run clean && typings install && npm run build",
     "clean": "rimraf dist && rimraf typings",
     "build": "tsc",
     "build:watch": "tsc --watch",
