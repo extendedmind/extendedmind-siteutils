@@ -1,6 +1,6 @@
 {
   "name": "extendedmind-siteutils",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Extended Mind Site Utils",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -21,7 +21,7 @@
     "nodemon": "^1.11.0",
     "rimraf": "^2.5.4",
     "tslint": "^3.15.1",
-    "typescript": "^2.0.6",
+    "typescript": "^2.1",
     "typings": "^1.3.2",
     "wait-on": "^1.5.3"
   },
