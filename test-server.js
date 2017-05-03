@@ -1,6 +1,14 @@
 var express = require('express')
 var server = express();
 
+var extraPublicOwner;
+var extraPublicOwnerContent;
+if (process.argv.length > 3) {
+  console.info("loading extra public return value for path /public/" + process.argv[2] + " from file: " + process.argv[3]);
+  extraPublicOwner = process.argv[2];
+  extraPublicOwnerContent = require(process.argv[3]);
+}
+
 server.get('/', function(req, res){
   res.send('ready');
 });
@@ -26,10 +34,10 @@ server.get('/v2/public/timo', function(req, res){
 });
 
 const mockLauriPublicItemsResponse = require('./test/mockLauriPublicItemsResponse.json');
-const mockLauriPublicItemsModifiedResponse = require('./test/mockLauriPublicItemsModifiedResponse.json');
+const mockEmptyResponse = require('./test/mockEmptyResponse.json');
 server.get('/v2/public/lauri', function(req, res){
   if (req.query.modified){
-    res.send(mockLauriPublicItemsModifiedResponse);
+    res.send(mockEmptyResponse);
   }else{
     res.send(mockLauriPublicItemsResponse);
   }
@@ -46,10 +54,9 @@ server.get('/v2/public/jp', function(req, res){
 });
 
 const mockTCPublicItemsResponse = require('./test/mockTCPublicItemsResponse.json');
-const mockTCPublicItemsModifiedResponse = require('./test/mockTCPublicItemsModifiedResponse.json');
 server.get('/v2/public/tc', function(req, res){
   if (req.query.modified){
-    res.send(mockTCPublicItemsModifiedResponse);
+    res.send(mockEmptyResponse);
   }else{
     res.send(mockTCPublicItemsResponse);
   }
@@ -67,6 +74,16 @@ server.get('/v2/info', function(req, res){
     res.send(mockInfoResponse);
   }
 });
+
+if (extraPublicOwner && extraPublicOwnerContent){
+  server.get('/v2/public/' + extraPublicOwner, function(req, res){
+    if (req.query.modified){
+      res.send(mockEmptyResponse);
+    }else{
+      res.send(extraPublicOwnerContent);
+    }
+  });
+}
 
 server.get('/v2/short/:id', function(req, res){
   if (req.params.id === "1"){
