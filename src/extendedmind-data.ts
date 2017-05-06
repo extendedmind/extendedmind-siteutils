@@ -1,8 +1,8 @@
 export class PublicBase {
   protected modified: number;
   protected synced: number;
-  protected tags: Array<any> = [];
-  protected notes: Array<any> = [];
+  protected tags: any[] = [];
+  protected notes: any[] = [];
 
   constructor() {
     this.updateSynced();
@@ -18,40 +18,40 @@ export class PublicBase {
     return this.synced;
   }
 
-  public getNotes(filters?: Array<any>): Array<any> {
+  public getNotes(filters?: any[]): any[] {
     if (filters && filters.length && this.notes.length) {
       // Start with a full copy of the notes array
       let filteredNotes = this.notes.slice();
-      for (let i = 0; i < filters.length; i++) {
-        if (filters[i].type === "blacklisted") {
+      for (const filter of filters) {
+        if (filter.type === "blacklisted") {
           for (let j = filteredNotes.length - 1; j >= 0; j--) {
-            if (filteredNotes[j].owner && filteredNotes[j].owner.blacklisted){
+            if (filteredNotes[j].owner && filteredNotes[j].owner.blacklisted) {
               filteredNotes.splice(j, 1);
             }
           }
-        }else if (filters[i].type === "index") {
-          if (filters[i].start > this.notes.length - 1 || filters[i].max === 0) {
+        }else if (filter.type === "index") {
+          if (filter.start > this.notes.length - 1 || filter.max === 0) {
             // The index is bigger than the size of the array, or only zero notes are requested,
             // just return an empty array
             return [];
           }else {
-            let endIndex = filters[i].max ? filters[i].start + filters[i].max : undefined;
-            filteredNotes = filteredNotes.slice(filters[i].start, endIndex);
+            const endIndex = filter.max ? filter.start + filter.max : undefined;
+            filteredNotes = filteredNotes.slice(filter.start, endIndex);
           }
-        }else if (filters[i].type === "keyword") {
-          if (filters[i].include) {
+        }else if (filter.type === "keyword") {
+          if (filter.include) {
             // Only include notes with the given keyword
             for (let j = filteredNotes.length - 1; j >= 0; j--) {
               let keywordFound = false;
               if (filteredNotes[j].keywords && filteredNotes[j].keywords.length) {
-                for (let k = 0; k < filteredNotes[j].keywords.length; k++) {
-                  if (filteredNotes[j].keywords[k].title === filters[i].include) {
+                for (const filteredNoteKeyword of filteredNotes[j].keywords) {
+                  if (filteredNoteKeyword.title === filter.include) {
                     keywordFound = true;
                     break;
-                  }else if (filteredNotes[j].keywords[k].parent) {
+                  }else if (filteredNoteKeyword.parent) {
                     // The tag has a parent, see if the include filter hits that
-                    let parentTag = this.getTagByUUID(filteredNotes[j].keywords[k].parent);
-                    if (parentTag && parentTag.title === filters[i].include) {
+                    const parentTag = this.getTagByUUID(filteredNoteKeyword.parent);
+                    if (parentTag && parentTag.title === filter.include) {
                       keywordFound = true;
                       break;
                     }
@@ -69,7 +69,7 @@ export class PublicBase {
     }
   }
 
-  public getTags(): Array<any> {
+  public getTags(): any[] {
     if (this.tags === undefined) return [];
     return this.tags;
   }
@@ -84,18 +84,18 @@ export class PublicBase {
     if (modified && (!this.modified || this.modified < modified)) this.modified = modified;
   }
 
-  protected pruneMissingKeywords(staleKeywords: Array<any>) {
+  protected pruneMissingKeywords(staleKeywords: any[]) {
     if (staleKeywords.length) {
-      for (let i = 0; i < staleKeywords.length; i++) {
+      for (const staleKeyword of staleKeywords) {
         let keywordInUse = false;
-        for (let j = 0; j < this.notes.length; j++) {
-          if (this.notes[j].keywords && this.notes[j].keywords.indexOf(staleKeywords[i]) !== -1) {
+        for (const existingNote of this.notes) {
+          if (existingNote.keywords && existingNote.keywords.indexOf(staleKeyword) !== -1) {
             keywordInUse = true;
             break;
           }
         }
         if (!keywordInUse) {
-          let keywordIndex = this.tags.indexOf(staleKeywords[i]);
+          const keywordIndex = this.tags.indexOf(staleKeyword);
           if (keywordIndex !== -1) {
             this.tags.splice(keywordIndex, 1);
           }
@@ -104,14 +104,14 @@ export class PublicBase {
     }
   }
 
-  protected addTagsToNote(note: any, tags: Array<any>, owner?: string) {
+  protected addTagsToNote(note: any, tags: any[], owner?: string) {
     if (tags) {
       if (!note.keywords) note.keywords = [];
-      for (let i = 0; i < tags.length; i++) {
-        for (let j = 0; j < this.tags.length; j++) {
-          if (this.tags[j].uuid === tags[i] &&
-              (!owner || owner === this.tags[j].collectiveOwner)) {
-            note.keywords.push(this.tags[j]);
+      for (const tag of tags) {
+        for (const existingTag of this.tags) {
+          if (existingTag.uuid === tag &&
+              (!owner || owner === existingTag.collectiveOwner)) {
+            note.keywords.push(existingTag);
             break;
           }
         }
@@ -122,16 +122,16 @@ export class PublicBase {
 
   protected updateNote(note: any, updateNoteFieldsFn: (oldNote: any, newNote: any) => void) {
     this.updateLatestModified(note.modified);
-    for (let i = 0; i < this.notes.length; i++) {
-      if (this.notes[i].uuid === note.uuid) {
-        let oldKeywords = [...this.notes[i].keywords];
-        let newKeywords = [...note.keywords];
+    for (const existingNote of this.notes) {
+      if (existingNote.uuid === note.uuid) {
+        const oldKeywords = [...existingNote.keywords];
+        const newKeywords = [...note.keywords];
         // Replace value with new value
-        updateNoteFieldsFn(this.notes[i], note);
+        updateNoteFieldsFn(existingNote, note);
         if (newKeywords && oldKeywords) {
           // Return those keywords that might no longer be needed
-          return oldKeywords.filter(oldKeyword => {
-            return !newKeywords.find(newKeyword => newKeyword.uuid === oldKeyword.uuid);
+          return oldKeywords.filter((oldKeyword) => {
+            return !newKeywords.find((newKeyword) => newKeyword.uuid === oldKeyword.uuid);
           });
         }
       }
@@ -151,9 +151,9 @@ export class PublicBase {
       }
     }
     // Check if this tag is a parent to other tags and update their title
-    for (let i = 0; i < this.tags.length; i++) {
-      if (this.tags[i].parent === tag.uuid) {
-        this.tags[i].parentTitle = tag.title;
+    for (const existingTag of this.tags) {
+      if (existingTag.parent === tag.uuid) {
+        existingTag.parentTitle = tag.title;
       }
     }
 
@@ -168,18 +168,16 @@ export class PublicBase {
   }
 
   protected getTagByUUID(uuid: string) {
-    if (this.tags.length) {
-      for (let i = 0; i < this.tags.length; i++) {
-        if (this.tags[i].uuid === uuid) {
-          return this.tags[i];
-        }
+    for (const existingTag of this.tags) {
+      if (existingTag.uuid === uuid) {
+        return existingTag;
       }
     }
   }
 }
 
 export class PublicHeaders extends PublicBase {
-  private owners: Array<any>;
+  private owners: any[];
 
   // Constructor
 
@@ -197,27 +195,27 @@ export class PublicHeaders extends PublicBase {
 
   // PRIVATE
 
-  private addOwners(users?: Array<any>, collectives?: Array<any>, commonTags?: Array<any>) {
+  private addOwners(users?: any[], collectives?: any[], commonTags?: any[]) {
     if (commonTags) {
-      for (let i = 0; i < commonTags.length; i++) {
-        this.updateTag(commonTags[i]);
+      for (const commonTag of commonTags) {
+        this.updateTag(commonTag);
       }
     }
     if (users) {
-      users.forEach(user => this.addOwner(user, "user"));
+      users.forEach((user) => this.addOwner(user, "user"));
     }
     if (collectives) {
-      collectives.forEach(collective => this.addOwner(collective, "collective"));
+      collectives.forEach((collective) => this.addOwner(collective, "collective"));
     }
   }
 
-  private addOwner(owner: any, type: string) {
+  private addOwner(owner: any, ownerType: string) {
 
     // First add to owner array
     let ownerToAdd = {
       handle: owner.handle,
       displayName: owner.displayName,
-      type: type,
+      type: ownerType,
       blacklisted: owner.blacklisted,
     };
 
@@ -227,7 +225,7 @@ export class PublicHeaders extends PublicBase {
     if (!this.owners) {
       this.owners = [ownerToAdd];
     } else {
-      let existingOwner = this.owners.find(existingOwner => owner.handle === existingOwner.handle);
+      const existingOwner = this.owners.find((o) => owner.handle === o.handle);
       if (existingOwner) {
         // Update display name and blacklist status
         existingOwner.displayName = ownerToAdd.displayName;
@@ -240,12 +238,12 @@ export class PublicHeaders extends PublicBase {
     }
 
     // Add notes
-    let staleKeywords = [];
+    const staleKeywords = [];
     if (owner.notes) {
-      for (let i = 0; i < owner.notes.length; i++) {
-        let noteWithLatestValues = this.addTagsToNote(owner.notes[i], owner.notes[i].commonTags);
+      for (const note of owner.notes) {
+        const noteWithLatestValues = this.addTagsToNote(note, note.commonTags);
         noteWithLatestValues.owner = ownerToAdd;
-        let staleKeywordsInNote = this.updateNote(noteWithLatestValues, this.updateNoteFields);
+        const staleKeywordsInNote = this.updateNote(noteWithLatestValues, this.updateNoteFields);
         if (staleKeywordsInNote) staleKeywords.push.apply(staleKeywords, staleKeywordsInNote);
       }
     }
@@ -260,7 +258,7 @@ export class PublicHeaders extends PublicBase {
 
     // Sort notes in descending order based on the published timestamp
     if (this.notes && this.notes.length > 1) {
-      this.notes.sort(function(note1, note2){
+      this.notes.sort((note1, note2) => {
         return note2.published - note1.published;
       });
     }
@@ -331,9 +329,9 @@ export class PublicItems extends PublicBase {
 
   public getNote(path: string) {
     if (this.notes && this.notes.length) {
-      for (let i = 0; i < this.notes.length; i++) {
-        if (this.notes[i].visibility.path === path)
-          return this.notes[i];
+      for (const note of this.notes) {
+        if (note.visibility.path === path)
+          return note;
       }
     }
   }
@@ -360,7 +358,7 @@ export class PublicItems extends PublicBase {
       };
     }
     // Check if shortId matches owner directly
-    const noteForShortId = this.notes.find(note => note.visibility && note.visibility.shortId === shortId);
+    const noteForShortId = this.notes.find((note) => note.visibility && note.visibility.shortId === shortId);
     if (noteForShortId) {
       return {
         handle: this.handle,
@@ -369,50 +367,49 @@ export class PublicItems extends PublicBase {
     }
   }
 
-  public setOwnerProcessed(data) {
+  public setOwnerProcessed(data: any): any {
     this.ownerProcessed = {
       modified: this.ownerModified,
-      data: data,
+      data,
     };
   }
 
   // Private
 
-  private addItems(notes?: Array<any>, tags?: Array<any>,
-                   collectiveTags?: Array<Array<any>>, unpublished?: Array<any>,
-                   assignees?: Array<any>) {
+  private addItems(notes?: any[], tags?: any[],
+                   collectiveTags?: any[][], unpublished?: any[],
+                   assignees?: any[]) {
 
-    let staleKeywords = [];
+    const staleKeywords = [];
     if (tags) {
-      for (let i = 0; i < tags.length; i++) {
-        this.updateTag(tags[i]);
+      for (const tag of tags) {
+        this.updateTag(tag);
       }
     }
     if (collectiveTags) {
-      for (let i = 0; i < collectiveTags.length; i++) {
-        for (let j = 0; j < collectiveTags[i][1].length; j++) {
-          collectiveTags[i][1][j].collectiveOwner = collectiveTags[i][0];
-          this.updateTag(collectiveTags[i][1][j]);
+      for (const collectiveTagInfo of collectiveTags) {
+        for (const collectiveTag of collectiveTagInfo[1]) {
+          collectiveTag.collectiveOwner = collectiveTagInfo[0];
+          this.updateTag(collectiveTag);
         }
       }
     }
 
     if (notes) {
-      for (let i = 0; i < notes.length; i++) {
-        let noteToUpdate = notes[i];
+      for (const note of notes) {
+        let noteToUpdate = note;
         if (noteToUpdate.relationships) {
           this.addTagsToNote(noteToUpdate, noteToUpdate.relationships.tags);
-          if (noteToUpdate.relationships){
+          if (noteToUpdate.relationships) {
             if (noteToUpdate.relationships.collectiveTags) {
-              let ct = noteToUpdate.relationships.collectiveTags;
-              for (let j = 0; j < ct.length; j++) {
-                noteToUpdate = this.addTagsToNote(noteToUpdate, ct[j][1], ct[j][0]);
+              for (const collectiveTagInfo of noteToUpdate.relationships.collectiveTags) {
+                noteToUpdate = this.addTagsToNote(noteToUpdate, collectiveTagInfo[1], collectiveTagInfo[0]);
               }
             }
             if (noteToUpdate.relationships.assignee && assignees) {
               // Add full assignee to directly to note
               noteToUpdate.assignee =
-                assignees.find(assignee => assignee.uuid === noteToUpdate.relationships.assignee);
+                assignees.find((assignee) => assignee.uuid === noteToUpdate.relationships.assignee);
             }
           }
           delete noteToUpdate.relationships;
@@ -420,7 +417,7 @@ export class PublicItems extends PublicBase {
         if (noteToUpdate.visibility.publicUi) {
           noteToUpdate.ui = JSON.parse(noteToUpdate.visibility.publicUi);
         }
-        let staleKeywordsInNote = this.updateNote(noteToUpdate, this.updateNoteFields);
+        const staleKeywordsInNote = this.updateNote(noteToUpdate, this.updateNoteFields);
         if (staleKeywordsInNote) staleKeywords.push.apply(staleKeywords, staleKeywordsInNote);
       }
     }
@@ -435,7 +432,7 @@ export class PublicItems extends PublicBase {
 
     // Sort notes in descending order based on the published timestamp
     if (this.notes && this.notes.length > 1) {
-      this.notes.sort(function(note1, note2){
+      this.notes.sort((note1, note2) => {
         return note2.visibility.published - note1.visibility.published;
       });
     }
@@ -465,11 +462,11 @@ export function processExternalPublicNote(publicNote: any) {
     // First: add local tags
     if (publicNote.note.relationships.tags) {
       const localKeywords = publicNote.note.relationships.tags.map(
-        tagUUID => {
-          let fullTag = publicNote.tags.find(tag => tag.uuid === tagUUID);
-          if (fullTag.parent){
+        (tagUUID) => {
+          const fullTag = publicNote.tags.find((tag) => tag.uuid === tagUUID);
+          if (fullTag.parent) {
             fullTag.parentTitle =
-              publicNote.tags.find(tagForParentSearch => tagForParentSearch.uuid === fullTag.parent).title;
+              publicNote.tags.find((tagForParentSearch) => tagForParentSearch.uuid === fullTag.parent).title;
           }
           return fullTag;
         });
@@ -479,19 +476,19 @@ export function processExternalPublicNote(publicNote: any) {
     // Second: add collective tags
     if (publicNote.note.relationships.collectiveTags) {
 
-      let collectiveKeywords = [];
-      for (let i = 0; i < publicNote.note.relationships.collectiveTags.length; i++) {
-        const collectiveUUID = publicNote.note.relationships.collectiveTags[i][0];
-        const tagUUIDsForCollective = publicNote.note.relationships.collectiveTags[i][1];
-        for (let j = 0; j < tagUUIDsForCollective.length; j++) {
+      const collectiveKeywords = [];
+      for (const collectiveTagInfo of publicNote.note.relationships.collectiveTags) {
+        const collectiveUUID = collectiveTagInfo[0];
+        const tagUUIDsForCollective = collectiveTagInfo[1];
+        for (const tagUUIDForCollective of tagUUIDsForCollective) {
           const fullTagsForCollective =
             publicNote.collectiveTags
-              .find(collectiveTagsInfo => collectiveTagsInfo[0] === collectiveUUID)[1];
-          const fullTag = fullTagsForCollective.find(fullTag =>
-            fullTag.uuid === tagUUIDsForCollective[j]);
+              .find((collectiveTagsInfo) => collectiveTagsInfo[0] === collectiveUUID)[1];
+          const fullTag = fullTagsForCollective.find((tag) =>
+            tag.uuid === tagUUIDForCollective);
           if (fullTag.parent) {
             fullTag.parentTitle = fullTagsForCollective.find(
-              tagForParentSearch => tagForParentSearch.uuid === fullTag.parent).title;
+              (tagForParentSearch) => tagForParentSearch.uuid === fullTag.parent).title;
           }
           collectiveKeywords.push(fullTag);
         }

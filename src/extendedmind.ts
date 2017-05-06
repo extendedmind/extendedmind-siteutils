@@ -3,7 +3,7 @@ import superagentPromise = require("superagent-promise");
 const request = superagentPromise(superagent, Promise);
 
 import * as lruCache from "lru-cache";
-import {PublicItems, PublicHeaders, processExternalPublicNote} from "./extendedmind-data";
+import { processExternalPublicNote, PublicHeaders, PublicItems } from "./extendedmind-data";
 
 export interface ClientPlatformInfo {
   url?: string;
@@ -27,7 +27,7 @@ export interface Info {
   version: string;
   created: number;
   ui?: string;
-  clients?: Array<ClientPlatform>;
+  clients?: ClientPlatform[];
 }
 
 export class Utils {
@@ -49,7 +49,7 @@ export class Utils {
   constructor(private backendApiUrl: string, cacheSettings?: any) {
     // Use default settings for cache unless override options are given as parameter
     this.cacheSettings = cacheSettings ? cacheSettings : {};
-    for (let defaultSetting in this.defaultCacheSettings) {
+    for (const defaultSetting in this.defaultCacheSettings) {
       if (this.defaultCacheSettings.hasOwnProperty(defaultSetting) &&
           !this.cacheSettings.hasOwnProperty(defaultSetting)) {
         this.cacheSettings[defaultSetting] = this.defaultCacheSettings[defaultSetting];
@@ -58,8 +58,8 @@ export class Utils {
   }
 
   public async fetchPublicItems(handle) {
-    let publicOwnerUrl = this.backendApiUrl + "/v2/public/" + handle;
-    let backendResponse = await request.get(publicOwnerUrl).end();
+    const publicOwnerUrl: string = this.backendApiUrl + "/v2/public/" + handle;
+    const backendResponse = await request.get(publicOwnerUrl).end();
     if (backendResponse.status === 200) {
       return new PublicItems(handle, backendResponse.body);
     }
@@ -67,9 +67,9 @@ export class Utils {
 
   public async refreshPublicItems(handle, cachedItems) {
     if (Date.now() - cachedItems.getLastSynced() > this.cacheSettings.syncTimeTreshold) {
-      let publicOwnerModifiedUrl = this.backendApiUrl + "/v2/public/" + handle +
+      const publicOwnerModifiedUrl = this.backendApiUrl + "/v2/public/" + handle +
                                   "?modified=" + cachedItems.getLatestModified();
-      let backendResponse = await request.get(publicOwnerModifiedUrl).end();
+      const backendResponse = await request.get(publicOwnerModifiedUrl).end();
       if (backendResponse.status === 200) {
         cachedItems.updateItems(backendResponse.body);
       }
@@ -78,8 +78,8 @@ export class Utils {
   }
 
   public async fetchPublicHeaders(): Promise<PublicHeaders> {
-    let publicUrl = this.backendApiUrl + "/v2/public";
-    let backendResponse = await request.get(publicUrl).end();
+    const publicUrl = this.backendApiUrl + "/v2/public";
+    const backendResponse = await request.get(publicUrl).end();
     if (backendResponse.status === 200) {
       return new PublicHeaders(backendResponse.body);
     }
@@ -87,9 +87,9 @@ export class Utils {
 
   public async refreshPublicHeaders(cachedHeaders: PublicHeaders): Promise<PublicHeaders> {
     if (Date.now() - cachedHeaders.getLastSynced() > this.cacheSettings.syncTimeTreshold) {
-      let publicOwnerModifiedUrl = this.backendApiUrl + "/v2/public" +
+      const publicOwnerModifiedUrl = this.backendApiUrl + "/v2/public" +
                                   "?modified=" + cachedHeaders.getLatestModified();
-      let backendResponse = await request.get(publicOwnerModifiedUrl).end();
+      const backendResponse = await request.get(publicOwnerModifiedUrl).end();
       if (backendResponse.status === 200) {
         cachedHeaders.updateHeaders(backendResponse.body);
       }
@@ -100,11 +100,11 @@ export class Utils {
   public async getPublicItems(handle) {
     // One minute after midnight, that gives the backend one minute to prune all unpublished
     // items and then modified works again
-    let todayMidnight = new Date().setUTCHours(0, 0, 1, 0);
+    const todayMidnight = new Date().setUTCHours(0, 0, 1, 0);
     if (!this.lastHandleCacheReset || this.lastHandleCacheReset < todayMidnight) {
       this.lastHandleCacheReset = Date.now();
       this.handleCache = lruCache<PublicItems>(
-        { max: this.cacheSettings.maxCachedHandles}
+        { max: this.cacheSettings.maxCachedHandles},
       );
     }
     const cachedItems: PublicItems = this.handleCache.get(handle);
@@ -117,7 +117,7 @@ export class Utils {
   public async getPublicHeaders(): Promise<any> {
     // One minute after midnight, that gives the backend one minute to prune all unpublished
     // items and then modified works again
-    let todayMidnight = new Date().setUTCHours(0, 0, 1, 0);
+    const todayMidnight = new Date().setUTCHours(0, 0, 1, 0);
     if (!this.lastHeadersReset || this.lastHeadersReset < todayMidnight) {
       this.lastHeadersReset = Date.now();
       this.headers = undefined;
@@ -129,7 +129,7 @@ export class Utils {
   }
 
   public async getPreviewItem(ownerUUID, itemUUID, previewCode) {
-    let backendResponse = await request.get(this.backendApiUrl + "/v2/owners/" + ownerUUID + "/data/items/" +
+    const backendResponse = await request.get(this.backendApiUrl + "/v2/owners/" + ownerUUID + "/data/items/" +
                                               itemUUID + "/preview/" + previewCode).end();
     if (backendResponse.status === 200) {
       return processExternalPublicNote(backendResponse.body);
@@ -144,27 +144,26 @@ export class Utils {
         url += "&history=true";
       }
     }
-    let infoResponse = await request.get(url)
+    const infoResponse = await request.get(url)
         .set("Accept", "application/json")
         .end();
-    return <Info> infoResponse.body;
+    return infoResponse.body;
   }
 
   public async getShortId(shortId) {
     // First, search if given short id is already cached
-    if (this.handleCache){
+    if (this.handleCache) {
       const cachedPublicItems = this.handleCache.values();
-      for (let i = 0; i < cachedPublicItems.length; i++) {
-        const shortIdInfo = cachedPublicItems[i].getShortId(shortId);
+      for (const cachedPublicItem of cachedPublicItems) {
+        const shortIdInfo = cachedPublicItem.getShortId(shortId);
         if (shortIdInfo) return shortIdInfo;
       }
     }
 
     // Not cached, get it from the backend
-    let backendResponse = await request.get(this.backendApiUrl + "/v2/short/" + shortId).end();
+    const backendResponse = await request.get(this.backendApiUrl + "/v2/short/" + shortId).end();
     if (backendResponse.status === 200) {
       return backendResponse.body;
     }
   }
-};
-
+}
