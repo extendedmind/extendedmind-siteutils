@@ -129,7 +129,7 @@ export class Utils {
   }
 
   public async getPreviewItem(ownerUUID, itemUUID, previewCode) {
-    const backendResponse = await request.get(this.backendApiUrl + "/v2/owners/" + ownerUUID + "/data/items/" +
+    const backendResponse = await request.get(this.backendApiUrl + "/v2/owners/" + ownerUUID + "/data/" +
                                               itemUUID + "/preview/" + previewCode).end();
     if (backendResponse.status === 200) {
       return processExternalPublicNote(backendResponse.body);

@@ -29,7 +29,7 @@ export class PublicBase {
               filteredNotes.splice(j, 1);
             }
           }
-        }else if (filter.type === "index") {
+        } else if (filter.type === "index") {
           if (filter.start > this.notes.length - 1 || filter.max === 0) {
             // The index is bigger than the size of the array, or only zero notes are requested,
             // just return an empty array
@@ -38,7 +38,7 @@ export class PublicBase {
             const endIndex = filter.max ? filter.start + filter.max : undefined;
             filteredNotes = filteredNotes.slice(filter.start, endIndex);
           }
-        }else if (filter.type === "keyword") {
+        } else if (filter.type === "keyword") {
           if (filter.include) {
             // Only include notes with the given keyword
             for (let j = filteredNotes.length - 1; j >= 0; j--) {
