@@ -3,10 +3,15 @@ var server = express();
 
 var extraPublicOwner;
 var extraPublicOwnerContent;
+var extraPublicOwnerModifiedContent;
 if (process.argv.length > 3) {
   console.info("loading extra public return value for path /public/" + process.argv[2] + " from file: " + process.argv[3]);
   extraPublicOwner = process.argv[2];
   extraPublicOwnerContent = require(process.argv[3]);
+  if (process.argv.length > 4){
+    console.info("loading extra public modified return value for path /public/" + process.argv[2] + "?modified=x from file: " + process.argv[4]);
+    extraPublicOwnerModifiedContent = require(process.argv[4]);
+  }
 }
 
 server.get('/', function(req, res){
@@ -78,7 +83,11 @@ server.get('/v2/info', function(req, res){
 if (extraPublicOwner && extraPublicOwnerContent){
   server.get('/v2/public/' + extraPublicOwner, function(req, res){
     if (req.query.modified){
-      res.send(mockEmptyResponse);
+      if (extraPublicOwnerModifiedContent){
+        res.send(extraPublicOwnerModifiedContent);
+      } else {
+        res.send(mockEmptyResponse);
+      }
     }else{
       res.send(extraPublicOwnerContent);
     }
