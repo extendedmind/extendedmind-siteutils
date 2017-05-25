@@ -68,10 +68,15 @@ export class Utils {
   public async refreshPublicItems(handle, cachedItems) {
     if (Date.now() - cachedItems.getLastSynced() > this.cacheSettings.syncTimeTreshold) {
       const publicOwnerModifiedUrl = this.backendApiUrl + "/v2/public/" + handle +
-                                  "?modified=" + cachedItems.getLatestModified();
-      const backendResponse = await request.get(publicOwnerModifiedUrl).end();
-      if (backendResponse.status === 200) {
-        cachedItems.updateItems(backendResponse.body);
+        "?modified=" + cachedItems.getLatestModified();
+      try {
+        const backendResponse = await request.get(publicOwnerModifiedUrl).end();
+        if (backendResponse.status === 200) {
+          cachedItems.updateItems(backendResponse.body);
+        }
+      } catch (exception) {
+        // When refreshing, don't crash but just return potentially stale data
+        console.error("Could not connect to backend refreshing public items: " + exception);
       }
     }
     return cachedItems;
@@ -88,12 +93,17 @@ export class Utils {
   public async refreshPublicHeaders(cachedHeaders: PublicHeaders): Promise<PublicHeaders> {
     if (Date.now() - cachedHeaders.getLastSynced() > this.cacheSettings.syncTimeTreshold) {
       const publicOwnerModifiedUrl = this.backendApiUrl + "/v2/public" +
-                                  "?modified=" + cachedHeaders.getLatestModified();
-      const backendResponse = await request.get(publicOwnerModifiedUrl).end();
-      if (backendResponse.status === 200) {
-        cachedHeaders.updateHeaders(backendResponse.body);
+        "?modified=" + cachedHeaders.getLatestModified();
+      try {
+        const backendResponse = await request.get(publicOwnerModifiedUrl).end();
+        if (backendResponse.status === 200) {
+          cachedHeaders.updateHeaders(backendResponse.body);
+        }
+      } catch (exception) {
+        // When refreshing, don't crash but just return potentially stale data
+        console.error("Could not connect to backend when refreshing public headers: " + exception);
       }
-    }
+   }
     return cachedHeaders;
   }
 
