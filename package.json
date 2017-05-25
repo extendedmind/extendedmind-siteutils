@@ -1,6 +1,6 @@
 {
   "name": "extendedmind-siteutils",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "description": "Extended Mind Site Utils",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
