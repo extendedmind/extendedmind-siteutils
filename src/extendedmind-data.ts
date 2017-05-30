@@ -124,15 +124,19 @@ export class PublicBase {
     this.updateLatestModified(note.modified);
     for (const existingNote of this.notes) {
       if (existingNote.uuid === note.uuid) {
-        const oldKeywords = [...existingNote.keywords];
-        const newKeywords = [...note.keywords];
+        const oldKeywords = existingNote.keywords ? [...existingNote.keywords] : undefined;
+        const newKeywords = note.keywords ? [...note.keywords] : undefined;
         // Replace value with new value
         updateNoteFieldsFn(existingNote, note);
-        if (newKeywords && oldKeywords) {
-          // Return those keywords that might no longer be needed
-          return oldKeywords.filter((oldKeyword) => {
-            return !newKeywords.find((newKeyword) => newKeyword.uuid === oldKeyword.uuid);
-          });
+        if (oldKeywords) {
+          if (newKeywords) {
+            // Return those keywords that might no longer be needed
+            return oldKeywords.filter((oldKeyword) => {
+              return !newKeywords.find((newKeyword) => newKeyword.uuid === oldKeyword.uuid);
+            });
+          } else {
+            return oldKeywords;
+          }
         }
       }
     }
